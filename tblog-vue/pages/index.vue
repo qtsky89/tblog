@@ -1,5 +1,6 @@
 <template>
-  <Tutorial/>
+  <!-- Tutorial/ -->
+  <nuxt-link to="/">Home page!</nuxt-link>
 </template>
 
 <script lang="ts">
