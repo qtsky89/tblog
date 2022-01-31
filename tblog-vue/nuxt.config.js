@@ -1,7 +1,7 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'tblog-vue',
+    title: 'tblog_vue',
     htmlAttrs: {
       lang: 'en',
     },
