@@ -1,11 +1,5 @@
 <template>
 <div>
-  <!-- Tutorial/ -->
-  <!-- <nuxt-link to="/">Home page!</nuxt-link> -->
-
-  <b-navbar class="main-navbar" toggleable="lg" type="light" variant="light">
-    <b-navbar-brand href="#" sticky=true>Tech Blog</b-navbar-brand>
-  </b-navbar>
   <b-row
     class="card-row"
   >
@@ -51,11 +45,6 @@ export default Vue.extend({
 </script>
 
 <style scoped>
-
-.main-navbar {
-  padding-left: 3.5rem !important;
-}
-
 .card-row {
   padding-left: 10rem;
   padding-right: 10rem;
