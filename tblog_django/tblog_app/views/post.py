@@ -1,5 +1,6 @@
 import logging
 import json
+from http import HTTPStatus as Status
 from django.http import JsonResponse
 from django.forms.models import model_to_dict
 #from django_app.models import Project
@@ -11,10 +12,10 @@ logger = logging.getLogger('django')
 class ProjectView(View):
     def get(self, request, *args, **kwargs):
         try:
-            return JsonResponse({'code': 200, 'item': 'test'}, status=200)
+            return JsonResponse({'message': '', 'data': {}}, status=Status.OK)
         except Exception as e:
             logger.error(e, exc_info=True)
-            return JsonResponse({'code': 500, 'message': str(e)}, status=500)
+            return JsonResponse({'message': '', 'data': {}}, status=Status.INTERNAL_SERVER_ERROR)
 
     # def post(self, request, *args, **kwargs):
     #     try:
