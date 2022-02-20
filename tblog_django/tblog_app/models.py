@@ -3,11 +3,10 @@ from django.utils import timezone
 
 
 class Post(models.Model):
-    # name = models.CharField(max_length=256, unique=True, primary_key=True)
-    # link = models.CharField(max_length=4096, default='')
-    # image = models.CharField(max_length=4096, default='')
-    # constraint = models.CharField(max_length=256, default='')
-    # created_date = models.DateTimeField(default=timezone.now)
+    id = models.BigAutoField(primary_key=True)
+    title = models.CharField(max_length=4096, default='')
+    body = models.TextField(default='')
+    created_date = models.DateTimeField(default=timezone.now)
 
-    def __str__(self):
-        return str(self.name)
+    def __str__(self) -> str:
+        return str(self.id)
