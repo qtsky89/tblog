@@ -30,7 +30,7 @@ class ProjectView(View):
             data = json.loads(request.body.decode('utf-8'))
             project = Post(**data)
             project.save()
-            logger.info(f'post {data["title"]} is created with param {data}')
+            logger.info(f'post {project.id} is created with param {data}')
             return JsonResponse({'message': f'{data["title"]} is created', 'data': []}, status=Status.CREATED)
         except Exception as e:
             logger.error(e, exc_info=True)
@@ -43,7 +43,7 @@ class ProjectView(View):
 
             data = json.loads(request.body.decode('utf-8'))
             Post.objects.filter(pk=kwargs['pk']).update(**data)
-            logger.info(f'{data["title"]} is replaced with param {data}')
+            logger.info(f'post {kwargs["pk"]} is replaced with param {data}')
             return JsonResponse({'message': f'{data["title"]} is replaced'}, status=Status.OK)
         except Exception as e:
             logger.error(e, exc_info=True)
@@ -54,7 +54,7 @@ class ProjectView(View):
             if kwargs['pk'] == '':
                 raise Exception('pk shouldn\'t be empty')
             Post.objects.filter(pk=kwargs['pk']).delete()
-            logger.info(f'{kwargs["pk"]} is deleted')
+            logger.info(f'post {kwargs["pk"]} is deleted')
             return JsonResponse({'message': f'{kwargs["pk"]} is deleted'}, status=Status.OK)
         except Exception as e:
             logger.error(e, exc_info=True)
