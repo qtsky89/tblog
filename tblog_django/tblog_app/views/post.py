@@ -10,7 +10,7 @@ logger = logging.getLogger('django')
 
 
 class ProjectView(View):
-    def get(self, **kwargs):
+    def get(self, *args, **kwargs):
         try:
             if kwargs['pk'] == '':
                 data = [model_to_dict(obj) for obj in Post.objects.all().order_by('created_date')]
@@ -22,7 +22,7 @@ class ProjectView(View):
             logger.error(e, exc_info=True)
             return JsonResponse({'message': '', 'data': []}, status=Status.INTERNAL_SERVER_ERROR)
 
-    def post(self, request: HttpRequest, **kwargs):
+    def post(self, request: HttpRequest, *args, **kwargs):
         try:
             if kwargs['pk'] != '':
                 raise Exception('pk should be empty')
@@ -36,7 +36,7 @@ class ProjectView(View):
             logger.error(e, exc_info=True)
             return JsonResponse({'message': str(e), 'data': []}, status=Status.INTERNAL_SERVER_ERROR)
 
-    def put(self, request: HttpRequest, **kwargs):
+    def put(self, request: HttpRequest, *args, **kwargs):
         try:
             if kwargs['pk'] == '':
                 raise Exception('pk shouldn\'t be empty')
@@ -49,7 +49,7 @@ class ProjectView(View):
             logger.error(e, exc_info=True)
             return JsonResponse({'message': str(e), 'data': []}, status=Status.INTERNAL_SERVER_ERROR)
 
-    def delete(self, **kwargs):
+    def delete(self, *args, **kwargs):
         try:
             if kwargs['pk'] == '':
                 raise Exception('pk shouldn\'t be empty')
