@@ -55,15 +55,16 @@ import Vue from 'vue'
 
 export default Vue.extend({
   name: 'IndexPage',
+  async asyncData({ $axios }) {
+    const res = await $axios.get('http://csh61127.nfra.io:8000/api/v1/post')
+    const posts = res.data.data
+    return { posts }
+  },
   data () {
     return  {
       posts: []
     }
   },
-    async fetch() {
-      const res = await this.$axios.get('http://csh61127.nfra.io:8000/api/v1/post')
-      this.posts = res.data.data
-    }
 })
 </script>
 
