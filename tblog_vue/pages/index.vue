@@ -1,51 +1,13 @@
 <template>
 <div>
-  <b-row
-    class="card-row"
-  >
-  <div v-for="post in posts" class="mt-2 mb-2 post-card">
-    <b-card title=post.title>
+  <b-row class="card-row">
+    <b-card v-for="post in posts" :key="post.id" class="mt-2 mb-2 post-card" title=post.title @click="postClick">
       <b-card-text>
         {{ post.body }}
       </b-card-text>
       <a href="#" class="card-link">Card link</a>
       <b-link href="#" class="card-link">Another link</b-link>
     </b-card>
-  </div>
-
-  <!-- <div v-for="post in posts">
-    {{ post }}
-  </div> -->
-
-    <!-- <b-col class="mt-3" md="4">
-      <b-card img-src="https://placekitten.com/1000/500" img-alt="Card image" img-top>
-        <b-card-text>
-          Some quick example text to build on the card and make up the bulk of the card's content.
-        </b-card-text>
-      </b-card>
-    </b-col>
-    <b-col class="mt-3" md="4">
-      <b-card img-src="https://placekitten.com/1000/500" img-alt="Card image" img-top>
-        <b-card-text>
-          Some quick example text to build on the card and make up the bulk of the card's content.
-        </b-card-text>
-      </b-card>
-    </b-col>
-    <b-col class="mt-3" md="4">
-      <b-card img-src="https://placekitten.com/1000/500" img-alt="Card image" img-top>
-        <b-card-text>
-          Some quick example text to build on the card and make up the bulk of the card's content.
-        </b-card-text>
-      </b-card>
-    </b-col>
-    <b-col class="mt-3" md="4">
-      <b-card img-src="https://placekitten.com/1000/500" img-alt="Card image" img-top>
-        <b-card-text>
-          Some quick example text to build on the card and make up the bulk of the card's content.
-        </b-card-text>
-      </b-card>
-    </b-col> -->
-
   </b-row>
 </div>
 </template>
@@ -55,14 +17,19 @@ import Vue from 'vue'
 
 export default Vue.extend({
   name: 'IndexPage',
-  async asyncData({ $axios }) {
-    const res = await $axios.get('http://csh61127.nfra.io:8000/api/v1/post')
+  async asyncData({ $axios, $config: { djangoURL}}) {
+    const res = await $axios.get(`${djangoURL}/api/v1/post`)
     const posts = res.data.data
     return { posts }
   },
   data () {
     return  {
       posts: []
+    }
+  },
+  methods: {
+    postClick () {
+      this.$router.push('/funHo')
     }
   },
 })
@@ -76,5 +43,11 @@ export default Vue.extend({
 
 .post-card {
   width: 100%;
+  border: 1px solid;
+  cursor: pointer;
+}
+
+.post-card:hover {
+  background: #4093d2 !important;
 }
 </style>
