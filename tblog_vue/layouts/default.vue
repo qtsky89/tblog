@@ -1,8 +1,8 @@
 <template>
   <div>
     <b-navbar class="main-navbar" toggleable="lg" type="light" variant="light">
-      <b-navbar-brand href="#" sticky=true>
-        <h3>Tech Blog</h3>
+      <b-navbar-brand sticky=true>
+        <NuxtLink to="/">Home page</NuxtLink>
       </b-navbar-brand>
     </b-navbar>
     <Nuxt />
