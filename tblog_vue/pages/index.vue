@@ -1,7 +1,7 @@
 <template>
 <div>
-  <b-row class="card-row">
-    <b-card v-for="post in posts" :key="post.id" class="mt-2 mb-2 post-card" title=post.title @click="postClick">
+  <b-row>
+    <b-card v-for="post in posts" :key="post.id" sm="4" class="mt-2 mb-2 post-card" title=post.title @click="postClick">
       <b-card-text>
         {{ post.body }}
       </b-card-text>
@@ -17,10 +17,14 @@ import Vue from 'vue'
 
 export default Vue.extend({
   name: 'IndexPage',
-  async asyncData({ $axios, $config: { djangoURL}}) {
+  async asyncData({ $axios, $config: { djangoURL }}) {
+    try {
     const res = await $axios.get(`${djangoURL}/api/v1/post`)
     const posts = res.data.data
     return { posts }
+    } catch (error) {
+      console.error(error)
+    }
   },
   data () {
     return  {
@@ -36,15 +40,13 @@ export default Vue.extend({
 </script>
 
 <style scoped>
-.card-row {
-  padding-left: 25rem;
-  padding-right: 25rem;
-}
 
 .post-card {
-  width: 100%;
   border: 1px solid;
   cursor: pointer;
+  vertical-align: middle;
+  margin: 0 auto;
+  width: 70%;
 }
 
 .post-card:hover {
