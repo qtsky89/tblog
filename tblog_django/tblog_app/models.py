@@ -18,5 +18,5 @@ class Tag(models.Model):
 
 class Post_tag(models.Model):
     id = models.BigAutoField(primary_key=True)
-    post_id = models.ForeignKey(Post, on_delete=models.CASCADE)
-    tag_name = models.ForeignKey(Tag, on_delete=models.CASCADE)
+    post_id = models.ForeignKey(Post, on_delete=models.CASCADE, db_column='post_id')
+    tag_name = models.ForeignKey(Tag, on_delete=models.CASCADE, db_column='tag_name')
