@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-navbar toggleable="lg" type="light" variant="light">
+    <b-navbar class="pl-0" toggleable="lg" type="light" variant="light">
       <div class="main-navbar">
         <b-navbar-brand sticky=true>
           <NuxtLink class="main-link" to="/">Tblog</NuxtLink>
@@ -16,6 +16,7 @@
   width: 70%;
   vertical-align: middle;
   margin: 0 auto;
+  padding-left: 0px;
 }
 
 .main-link {
