@@ -18,8 +18,8 @@
           <b-card-text>
             {{ post.body }}
           </b-card-text>
-          <a href="#" class="card-link">Card link</a>
-          <b-link href="#" class="card-link">Another link</b-link>
+          <!-- <a href="#" class="card-link">Card link</a>
+          <b-link href="#" class="card-link">Another link</b-link> -->
         </b-card>
       </b-col>
     </b-row>
@@ -60,11 +60,17 @@ export default Vue.extend({
 
 <style scoped>
 .post-card {
-  border: 1px solid;
   cursor: pointer;
   vertical-align: middle;
   margin: 0 auto;
   width: 800px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  min-height: 100px;
+  -webkit-line-clamp: 2; /* 라인수 */
+  -webkit-box-orient: vertical;
+  word-wrap: break-word;
 }
 
 .post-card:hover {
