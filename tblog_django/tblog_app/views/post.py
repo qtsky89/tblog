@@ -13,7 +13,7 @@ class ProjectView(View):
     def get(self, *args, **kwargs):
         try:
             if kwargs['pk'] == '':
-                data = [model_to_dict(obj) for obj in Post.objects.all().order_by('created_date')]
+                data = [model_to_dict(obj) for obj in Post.objects.all().order_by('-created_date')]
             else:
                 data = [model_to_dict(Post.objects.get(pk=kwargs['pk']))]
 
