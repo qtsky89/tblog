@@ -3,7 +3,7 @@ import json
 from http import HTTPStatus as Status
 from django.http import HttpRequest, JsonResponse
 from django.forms.models import model_to_dict
-from tblog_app.models import Post
+from tblog_app.models import Post, Tag
 from django.views.generic import View
 
 logger = logging.getLogger('django')
@@ -28,10 +28,17 @@ class ProjectView(View):
                 raise Exception('pk should be empty')
 
             data = json.loads(request.body.decode('utf-8'))
-            project = Post(**data)
-            project.save()
-            logger.info(f'post {project.id} is created with param {data}')
-            return JsonResponse({'message': f'{data["title"]} is created', 'data': []}, status=Status.CREATED)
+            post = Post(title=data['title'], body=data['body'])
+            post.save()
+
+            # make Tag object and add to Post object
+            for tag in data['tag']:
+                t = Tag(tag)
+                t.save()
+                post.tag.add(t)
+
+            logger.info(f'post {post.id} is created with param {data}')
+            return JsonResponse({'message': f'post{post.id} is created', 'data': []}, status=Status.CREATED)
         except Exception as e:
             logger.error(e, exc_info=True)
             return JsonResponse({'message': str(e), 'data': []}, status=Status.INTERNAL_SERVER_ERROR)

@@ -3,7 +3,6 @@ import json
 from http import HTTPStatus as Status
 from django.http import HttpRequest, JsonResponse
 from django.forms.models import model_to_dict
-#from tblog_app.models import Post_tag
 from django.views.generic import View
 from django.db.models import Count
 
