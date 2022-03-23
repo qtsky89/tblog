@@ -4,7 +4,8 @@ from http import HTTPStatus as Status
 from django.http import HttpRequest, JsonResponse
 from django.forms.models import model_to_dict
 from django.views.generic import View
-from django.db.models import Count
+from tblog_app.models import Post
+from collections import Counter
 
 logger = logging.getLogger('django')
 
@@ -12,9 +13,9 @@ logger = logging.getLogger('django')
 class TagView(View):
     def get(self, *args, **kwargs):
         try:
-            #data = [obj['tag_name'] for obj in Post_tag.objects.values('tag_name').annotate(count=Count('tag_name')).order_by('-count').distinct()]
-            data = []
-
+            tags = [model_to_dict(obj)['tag'] for obj in Post.tag.through.objects.all()]
+            c = Counter(tags)
+            data = [tag for tag, _ in c.most_common()]
             return JsonResponse({'message': '', 'data': data}, status=Status.OK)
         except Exception as e:
             logger.error(e, exc_info=True)
