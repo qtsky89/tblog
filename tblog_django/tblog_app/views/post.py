@@ -1,3 +1,4 @@
+from django.db.models.fields.related import ManyToManyField
 import logging
 import json
 from http import HTTPStatus as Status
@@ -5,17 +6,28 @@ from django.http import HttpRequest, JsonResponse
 from django.forms.models import model_to_dict
 from tblog_app.models import Post, Tag
 from django.views.generic import View
+from typing import List
 
 logger = logging.getLogger('django')
 
 
 class ProjectView(View):
+    def _object_to_tag(self, tags: List[Tag]) -> List[str]:
+        ret = [''] * len(tags)
+        for i, tag in enumerate(tags):
+            ret[i] = tag.name
+        return ret
+
     def get(self, *args, **kwargs):
         try:
             if kwargs['pk'] == '':
                 data = [model_to_dict(obj) for obj in Post.objects.all().order_by('-created_date')]
             else:
                 data = [model_to_dict(Post.objects.get(pk=kwargs['pk']))]
+
+            # convert tag type (object -> type)
+            for d in data:
+                d['tag'] = self._object_to_tag(d['tag'])
 
             return JsonResponse({'message': '', 'data': data}, status=Status.OK)
         except Exception as e:
@@ -62,7 +74,7 @@ class ProjectView(View):
                 raise Exception('pk shouldn\'t be empty')
             Post.objects.filter(pk=kwargs['pk']).delete()
             logger.info(f'post {kwargs["pk"]} is deleted')
-            return JsonResponse({'message': f'{kwargs["pk"]} is deleted'}, status=Status.OK)
+            return JsonResponse({'message': f'post{kwargs["pk"]} is deleted'}, status=Status.OK)
         except Exception as e:
             logger.error(e, exc_info=True)
             return JsonResponse({'message': str(e), 'data': []}, status=Status.INTERNAL_SERVER_ERROR)
