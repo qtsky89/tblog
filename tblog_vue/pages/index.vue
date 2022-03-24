@@ -15,8 +15,8 @@
           title="post.title"
           @click="postClick"
         >
-          <b-card-text>
-            {{ post.body }}
+          <b-card-text class="post-card-text">
+            {{ post.summary }}
           </b-card-text>
           <!-- <a href="#" class="card-link">Card link</a>
           <b-link href="#" class="card-link">Another link</b-link> -->
@@ -67,8 +67,8 @@ export default Vue.extend({
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  min-height: 100px;
-  -webkit-line-clamp: 2; /* 라인수 */
+  min-height: 110px;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   word-wrap: break-word;
 }
@@ -77,24 +77,29 @@ export default Vue.extend({
   background: #4093d2 !important;
 }
 
+.post-card-text {
+  color: hsla(0, 0%, 0%, 0.801);
+}
+
 .tagbar {
   width: 800px;
   margin: 0 auto;
 }
 
 .tag {
-  font-size: 1.5rem;
+  font-size: 12px;
   display: inline-block;
-  padding: 0.25rem 0.5rem;
-  margin: 5px 5px 5px;
-  color: rgb(33, 37, 41);
-  background: rgb(241, 243, 245);
+  padding: 4px 10px;
+  margin: 15px 8px 10px 0;
+  color: #959595;
   font-weight: 600;
-  border-radius: 1rem;
+  border: 1px solid #d1d1d1;
+  border-radius: 14px;
   cursor: pointer;
 }
 
 .tag:hover {
   background: #4093d2 !important;
+  color: #000000;
 }
 </style>
