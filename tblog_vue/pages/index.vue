@@ -14,10 +14,13 @@
           class="mt-3 mb-3 post-card"
           title="post.title"
           @click="postClick"
+          :footer="post.tag"
+          footer-tag="footer"
         >
           <b-card-text class="post-card-text">
             {{ post.summary }}
           </b-card-text>
+
           <!-- <a href="#" class="card-link">Card link</a>
           <b-link href="#" class="card-link">Another link</b-link> -->
         </b-card>
@@ -67,7 +70,7 @@ export default Vue.extend({
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  min-height: 110px;
+  min-height: 150px;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   word-wrap: break-word;
@@ -87,7 +90,7 @@ export default Vue.extend({
 }
 
 .tag {
-  font-size: 12px;
+  font-size: 14px;
   display: inline-block;
   padding: 4px 10px;
   margin: 15px 8px 10px 0;
