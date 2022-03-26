@@ -14,15 +14,13 @@
           class="mt-3 mb-3 post-card"
           title="post.title"
           @click="postClick"
-          :footer="post.tag"
-          footer-tag="footer"
         >
           <b-card-text class="post-card-text">
             {{ post.summary }}
           </b-card-text>
-
-          <!-- <a href="#" class="card-link">Card link</a>
-          <b-link href="#" class="card-link">Another link</b-link> -->
+          <template #footer>
+            <span class="card-tag" v-for="t in post.tag">{{ t }} </span>
+          </template>
         </b-card>
       </b-col>
     </b-row>
@@ -62,6 +60,10 @@ export default Vue.extend({
 </script>
 
 <style scoped>
+.card-footer {
+  padding: 11px 0px 0px 16px;
+  background-color: rgba(0, 0, 0, 0);
+}
 .post-card {
   cursor: pointer;
   vertical-align: middle;
@@ -69,10 +71,10 @@ export default Vue.extend({
   width: 800px;
   overflow: hidden;
   text-overflow: ellipsis;
-  display: -webkit-box;
   min-height: 150px;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
+  /* -webkit-line-clamp: 2;
+  display: -webkit-box;
+  -webkit-box-orient: vertical; */
   word-wrap: break-word;
 }
 
@@ -94,6 +96,18 @@ export default Vue.extend({
   display: inline-block;
   padding: 4px 10px;
   margin: 15px 8px 10px 0;
+  color: #959595;
+  font-weight: 600;
+  border: 1px solid #d1d1d1;
+  border-radius: 14px;
+  cursor: pointer;
+}
+
+.card-tag {
+  font-size: 14px;
+  display: inline-block;
+  padding: 0px 5px;
+  margin: 0px 8px 10px 0px;
   color: #959595;
   font-weight: 600;
   border: 1px solid #d1d1d1;
