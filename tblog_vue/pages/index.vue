@@ -13,7 +13,7 @@
           sm="4"
           class="mt-3 mb-3 post-card"
           title="post.title"
-          @click="postClick"
+          @click="postClick(post.id)"
         >
           <b-card-text class="post-card-text">
             {{ post.summary }}
@@ -52,8 +52,8 @@ export default Vue.extend({
     }
   },
   methods: {
-    postClick() {
-      this.$router.push('/funHo')
+    postClick(id: string) {
+      this.$router.push(`/post/${id}`)
     },
   },
 })
