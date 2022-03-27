@@ -1,52 +1,122 @@
 <template>
-<div>
-  <b-row
-    class="card-row"
-  >
-    <b-col class="mt-3" md="4">
-      <b-card img-src="https://placekitten.com/1000/500" img-alt="Card image" img-top>
-        <b-card-text>
-          Some quick example text to build on the card and make up the bulk of the card's content.
-        </b-card-text>
-      </b-card>
-    </b-col>
-    <b-col class="mt-3" md="4">
-      <b-card img-src="https://placekitten.com/1000/500" img-alt="Card image" img-top>
-        <b-card-text>
-          Some quick example text to build on the card and make up the bulk of the card's content.
-        </b-card-text>
-      </b-card>
-    </b-col>
-    <b-col class="mt-3" md="4">
-      <b-card img-src="https://placekitten.com/1000/500" img-alt="Card image" img-top>
-        <b-card-text>
-          Some quick example text to build on the card and make up the bulk of the card's content.
-        </b-card-text>
-      </b-card>
-    </b-col>
-    <b-col class="mt-3" md="4">
-      <b-card img-src="https://placekitten.com/1000/500" img-alt="Card image" img-top>
-        <b-card-text>
-          Some quick example text to build on the card and make up the bulk of the card's content.
-        </b-card-text>
-      </b-card>
-    </b-col>
-
-  </b-row>
-</div>
+  <div>
+    <b-row>
+      <div class="tagbar">
+        <span v-for="tag in tags" class="tag">{{ tag }}</span>
+      </div>
+    </b-row>
+    <b-row>
+      <b-col cols="12">
+        <b-card
+          v-for="post in posts"
+          :key="post.id"
+          sm="4"
+          class="mt-3 mb-3 post-card"
+          title="post.title"
+          @click="postClick(post.id)"
+        >
+          <b-card-text class="post-card-text">
+            {{ post.summary }}
+          </b-card-text>
+          <template #footer>
+            <span class="card-tag" v-for="t in post.tag">{{ t }} </span>
+          </template>
+        </b-card>
+      </b-col>
+    </b-row>
+  </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 
 export default Vue.extend({
-  name: 'IndexPage'
+  name: 'IndexPage',
+  async asyncData({ $axios, $config: { djangoURL } }) {
+    try {
+      const [postsRes, tagRes] = await Promise.all([
+        $axios.get(`${djangoURL}/api/v1/post`),
+        $axios.get(`${djangoURL}/api/v1/tag`),
+      ])
+      return {
+        posts: postsRes.data.data,
+        tags: tagRes.data.data,
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  },
+  data() {
+    return {
+      posts: [],
+    }
+  },
+  methods: {
+    postClick(id: string) {
+      this.$router.push(`/post/${id}`)
+    },
+  },
 })
 </script>
 
 <style scoped>
-.card-row {
-  padding-left: 10rem;
-  padding-right: 10rem;
+.card-footer {
+  padding: 11px 0px 0px 16px;
+  background-color: rgba(0, 0, 0, 0);
+}
+.post-card {
+  cursor: pointer;
+  vertical-align: middle;
+  margin: 0 auto;
+  width: 800px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-height: 150px;
+  /* -webkit-line-clamp: 2;
+  display: -webkit-box;
+  -webkit-box-orient: vertical; */
+  word-wrap: break-word;
+}
+
+.post-card:hover {
+  background: #4093d2 !important;
+}
+
+.post-card-text {
+  color: hsla(0, 0%, 0%, 0.801);
+}
+
+.tagbar {
+  width: 800px;
+  margin: 0 auto;
+}
+
+.tag {
+  font-size: 14px;
+  display: inline-block;
+  padding: 4px 10px;
+  margin: 15px 8px 10px 0;
+  color: #959595;
+  font-weight: 600;
+  border: 1px solid #d1d1d1;
+  border-radius: 14px;
+  cursor: pointer;
+}
+
+.card-tag {
+  font-size: 14px;
+  display: inline-block;
+  padding: 0px 5px;
+  margin: 0px 8px 10px 0px;
+  color: #959595;
+  font-weight: 600;
+  border: 1px solid #d1d1d1;
+  border-radius: 14px;
+  cursor: pointer;
+}
+
+.tag:hover {
+  background: #4093d2 !important;
+  color: #000000;
 }
 </style>
