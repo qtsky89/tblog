@@ -5,6 +5,9 @@
         <b-navbar-brand>
           <NuxtLink class="main-link" to="/">Tblog</NuxtLink>
         </b-navbar-brand>
+        <b-button variant="outline-primary" pill size="md">
+          <NuxtLink to="/create">Create</NuxtLink>
+        </b-button>
       </div>
     </b-navbar>
     <Nuxt />
@@ -17,6 +20,8 @@
   vertical-align: middle;
   margin: 0 auto;
   padding-left: 10px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .main-link {
