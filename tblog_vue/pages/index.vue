@@ -19,7 +19,7 @@
             {{ post.summary }}
           </b-card-text>
           <template #footer>
-            <span class="card-tag" v-for="t in post.tag">{{ t }} </span>
+            <span v-for="t in post.tag" class="card-tag">{{ t }} </span>
           </template>
         </b-card>
       </b-col>
