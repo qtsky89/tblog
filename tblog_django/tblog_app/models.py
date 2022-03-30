@@ -13,6 +13,7 @@ class Post(models.Model):
     id = models.BigAutoField(primary_key=True)
     title = models.CharField(max_length=4096, default='')
     body = models.TextField(default='')
+    description = models.TextField(default='')
     created_date = models.DateTimeField(default=timezone.now)
     tag = models.ManyToManyField(Tag)
 

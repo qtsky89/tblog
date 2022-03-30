@@ -27,7 +27,7 @@ class ProjectView(View):
             # convert tag type (object -> type)
             for d in data:
                 d['tag'] = self._object_to_tag(d['tag'])
-                d['summary'] = d['body'][:100]
+                del d['body']
 
             return JsonResponse({'message': '', 'data': data}, status=Status.OK)
         except Exception as e:

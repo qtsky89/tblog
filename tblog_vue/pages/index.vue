@@ -16,7 +16,7 @@
           @click="postClick(post.id)"
         >
           <b-card-text class="post-card-text">
-            {{ post.summary }}
+            {{ post.description }}
           </b-card-text>
           <template #footer>
             <span v-for="t in post.tag" class="card-tag">{{ t }} </span>
