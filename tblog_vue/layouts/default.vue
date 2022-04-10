@@ -16,7 +16,7 @@
 
 <style scoped>
 .main-navbar {
-  width: 800px;
+  width: 100%;
 }
 
 .main-link {
