@@ -15,7 +15,7 @@
         <b-form-input
           v-model="description"
           class="mt-3"
-          size="lg"
+          size="md"
           placeholder="Enter the post description"
         />
       </b-row>
@@ -23,7 +23,7 @@
         <b-form-tags
           v-model="tags"
           class="mt-3"
-          size="lg"
+          size="md"
           tag-pills
           tag-variant="primary"
           placeholder="Enter the post tags"
@@ -97,7 +97,7 @@ export default {
 
 .editor {
   width: 100%;
-  height: 70vh;
+  height: 65vh;
   border: 1px solid #ced4da;
 }
 </style>
