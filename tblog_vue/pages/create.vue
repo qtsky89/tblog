@@ -2,14 +2,33 @@
   <div class="total">
     <b-container class="editor-container">
       <b-row>
+        <b-form-input
+          v-model="title"
+          class="mt-3"
+          size="lg"
+          placeholder="Enter the post title"
+        >
+        </b-form-input>
+      </b-row>
+      <b-row>
+        <b-form-tags
+          v-model="tags"
+          class="mt-3"
+          size="lg"
+          tag-pills
+          tag-variant="primary"
+          placeholder="Enter the post tags"
+        ></b-form-tags
+      ></b-row>
+      <b-row>
         <no-ssr>
           <mavon-editor
-            v-model="editorData"
-            class="editor"
+            v-model="body"
+            class="editor mt-3"
             :toolbars="toolbarOption"
             language="en"
             font-size="15px"
-            placeholder="Please enter the post body"
+            placeholder="Enter the post body"
           />
         </no-ssr>
       </b-row>
@@ -22,6 +41,9 @@ export default {
   data() {
     return {
       title: '',
+      body: '',
+      description: '',
+      tags: [],
       toolbarOption: {
         bold: true,
         italic: true,
@@ -53,7 +75,6 @@ export default {
         subfield: true,
         preview: true,
       },
-      editorData: '',
     }
   },
 }
@@ -66,6 +87,6 @@ export default {
 
 .editor {
   width: 100%;
-  height: 100%;
+  height: 70vh;
 }
 </style>
