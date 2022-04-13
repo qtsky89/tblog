@@ -6,9 +6,12 @@
           <b-form-input
             v-model="title"
             class="mt-3"
-            size="lg"
+            size="md"
             placeholder="Enter the post title"
           />
+        </b-col>
+        <b-col class="post-button" sm="2" offset-sm="5">
+          <b-button pill variant="outline-info" class="mt-3">Post</b-button>
         </b-col>
       </b-row>
       <b-row>
@@ -77,7 +80,6 @@ export default {
         undo: true,
         redo: true,
         trash: true,
-        save: true,
         navigation: true,
         alignleft: true,
         aligncenter: true,
@@ -99,5 +101,9 @@ export default {
   width: 100%;
   height: 65vh;
   border: 1px solid #ced4da;
+}
+
+.post-button {
+  padding-left: 100px;
 }
 </style>
