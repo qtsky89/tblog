@@ -26,7 +26,7 @@ class ProjectView(View):
 
             # convert tag type (object -> type)
             for d in data:
-                d['tag'] = self._object_to_tag(d['tag'])
+                d['tags'] = self._object_to_tag(d['tags'])
                 del d['body']
 
             return JsonResponse({'message': '', 'data': data}, status=Status.OK)
@@ -40,14 +40,14 @@ class ProjectView(View):
                 raise Exception('pk should be empty')
 
             data = json.loads(request.body.decode('utf-8'))
-            post = Post(title=data['title'], body=data['body'])
+            post = Post(title=data['title'], body=data['body'], description=data['description'])
             post.save()
 
             # make Tag object and add to Post object
-            for tag in data['tag']:
+            for tag in data['tags']:
                 t = Tag(tag)
                 t.save()
-                post.tag.add(t)
+                post.tags.add(t)
 
             logger.info(f'post {post.id} is created with param {data}')
             return JsonResponse({'message': f'post{post.id} is created', 'data': []}, status=Status.CREATED)

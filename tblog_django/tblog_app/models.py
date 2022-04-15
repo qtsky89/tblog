@@ -15,7 +15,7 @@ class Post(models.Model):
     body = models.TextField(default='')
     description = models.TextField(default='')
     created_date = models.DateTimeField(default=timezone.now)
-    tag = models.ManyToManyField(Tag)
+    tags = models.ManyToManyField(Tag)
 
     def __str__(self) -> str:
         return str(self.id)

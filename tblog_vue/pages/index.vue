@@ -32,11 +32,11 @@ import Vue from 'vue'
 
 export default Vue.extend({
   name: 'IndexPage',
-  async asyncData({ $axios, $config: { djangoURL } }) {
+  async asyncData({ $axios }) {
     try {
       const [postsRes, tagRes] = await Promise.all([
-        $axios.get(`${djangoURL}/api/v1/post`),
-        $axios.get(`${djangoURL}/api/v1/tag`),
+        $axios.get('/api/v1/post'),
+        $axios.get('/api/v1/tag'),
       ])
       return {
         posts: postsRes.data.data,

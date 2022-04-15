@@ -1,7 +1,7 @@
 <template>
   <div class="total">
     <b-container class="editor-container">
-      <b-row>
+      <b-row class="title">
         <b-col sm="5" class="p-0">
           <b-form-input
             v-model="title"
@@ -10,8 +10,15 @@
             placeholder="Enter the post title"
           />
         </b-col>
-        <b-col class="post-button" sm="2" offset-sm="5">
-          <b-button pill variant="outline-info" class="mt-3">Post</b-button>
+        <!-- <b-col class="publish-button" sm="2" offset-sm="5"> -->
+        <b-col>
+          <b-button
+            class="publish-button mt-3"
+            pill
+            variant="outline-info"
+            @click="publish"
+            >Publish</b-button
+          >
         </b-col>
       </b-row>
       <b-row>
@@ -50,6 +57,13 @@
 </template>
 
 <script lang="ts">
+interface publishData {
+  title: string
+  body: string
+  description: string
+  tags: Array<string>
+}
+
 export default {
   data() {
     return {
@@ -89,6 +103,22 @@ export default {
       },
     }
   },
+  methods: {
+    async publish() {
+      try {
+        const data: publishData = {
+          title: this.title,
+          body: this.body,
+          description: this.description,
+          tags: this.tags,
+        }
+        await this.$axios.post('/api/v1/post', data)
+        this.$router.push('/')
+      } catch (error) {
+        console.error(error)
+      }
+    },
+  },
 }
 </script>
 
@@ -103,7 +133,11 @@ export default {
   border: 1px solid #ced4da;
 }
 
-.post-button {
-  padding-left: 100px;
+.publish-button {
+  float: right;
+}
+
+.title {
+  justify-content: space-between;
 }
 </style>
