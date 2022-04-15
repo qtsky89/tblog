@@ -21,13 +21,14 @@ class ProjectView(View):
         try:
             if kwargs['pk'] == '':
                 data = [model_to_dict(obj) for obj in Post.objects.all().order_by('-created_date')]
+                for d in data:
+                    del d['body']
             else:
                 data = [model_to_dict(Post.objects.get(pk=kwargs['pk']))]
 
             # convert tag type (object -> type)
             for d in data:
                 d['tags'] = self._object_to_tag(d['tags'])
-                del d['body']
 
             return JsonResponse({'message': '', 'data': data}, status=Status.OK)
         except Exception as e:
