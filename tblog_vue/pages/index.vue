@@ -11,7 +11,7 @@
             :key="post.id"
             sm="4"
             class="mt-3 mb-3 post-card"
-            title="post.title"
+            :title="post.title"
             @click="postClick(post.id)"
           >
             <b-card-text class="post-card-text">
