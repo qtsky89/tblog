@@ -1,6 +1,8 @@
 <template>
   <div>
-    <span>{{ post.body }}</span>
+    <b-container class="post-body">
+      <span>{{ post.body }}</span>
+    </b-container>
   </div>
 </template>
 
@@ -21,4 +23,7 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+.post-body {
+}
+</style>
