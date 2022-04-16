@@ -10,7 +10,7 @@ from typing import List
 logger = logging.getLogger('django')
 
 
-class ProjectView(View):
+class PostView(View):
     def _object_to_tag(self, tags: List[Tag]) -> List[str]:
         ret = [''] * len(tags)
         for i, tag in enumerate(tags):
@@ -21,13 +21,14 @@ class ProjectView(View):
         try:
             if kwargs['pk'] == '':
                 data = [model_to_dict(obj) for obj in Post.objects.all().order_by('-created_date')]
+                for d in data:
+                    del d['body']
             else:
                 data = [model_to_dict(Post.objects.get(pk=kwargs['pk']))]
 
             # convert tag type (object -> type)
             for d in data:
-                d['tag'] = self._object_to_tag(d['tag'])
-                d['summary'] = d['body'][:100]
+                d['tags'] = self._object_to_tag(d['tags'])
 
             return JsonResponse({'message': '', 'data': data}, status=Status.OK)
         except Exception as e:
@@ -40,14 +41,14 @@ class ProjectView(View):
                 raise Exception('pk should be empty')
 
             data = json.loads(request.body.decode('utf-8'))
-            post = Post(title=data['title'], body=data['body'])
+            post = Post(title=data['title'], body=data['body'], description=data['description'])
             post.save()
 
             # make Tag object and add to Post object
-            for tag in data['tag']:
+            for tag in data['tags']:
                 t = Tag(tag)
                 t.save()
-                post.tag.add(t)
+                post.tags.add(t)
 
             logger.info(f'post {post.id} is created with param {data}')
             return JsonResponse({'message': f'post{post.id} is created', 'data': []}, status=Status.CREATED)

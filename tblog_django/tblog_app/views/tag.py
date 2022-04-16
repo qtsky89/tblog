@@ -13,7 +13,7 @@ logger = logging.getLogger('django')
 class TagView(View):
     def get(self, *args, **kwargs):
         try:
-            tags = [model_to_dict(obj)['tag'] for obj in Post.tag.through.objects.all()]
+            tags = [model_to_dict(obj)['tag'] for obj in Post.tags.through.objects.all()]
             c = Counter(tags)
             data = [tag for tag, _ in c.most_common()]
             return JsonResponse({'message': '', 'data': data}, status=Status.OK)

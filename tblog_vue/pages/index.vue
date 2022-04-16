@@ -1,29 +1,29 @@
 <template>
   <div>
-    <b-row>
-      <div class="tagbar">
-        <span v-for="tag in tags" class="tag">{{ tag }}</span>
-      </div>
-    </b-row>
-    <b-row>
-      <b-col cols="12">
-        <b-card
-          v-for="post in posts"
-          :key="post.id"
-          sm="4"
-          class="mt-3 mb-3 post-card"
-          title="post.title"
-          @click="postClick(post.id)"
-        >
-          <b-card-text class="post-card-text">
-            {{ post.summary }}
-          </b-card-text>
-          <template #footer>
-            <span class="card-tag" v-for="t in post.tag">{{ t }} </span>
-          </template>
-        </b-card>
-      </b-col>
-    </b-row>
+    <b-container class="tagbar">
+      <span v-for="tag in tags" class="tag">{{ tag }}</span>
+    </b-container>
+    <b-container class="post-cards">
+      <b-row>
+        <b-col cols="12">
+          <b-card
+            v-for="post in posts"
+            :key="post.id"
+            sm="4"
+            class="mt-3 mb-3 post-card"
+            :title="post.title"
+            @click="postClick(post.id)"
+          >
+            <b-card-text class="post-card-text">
+              {{ post.description }}
+            </b-card-text>
+            <template #footer>
+              <span v-for="t in post.tag" class="card-tag">{{ t }} </span>
+            </template>
+          </b-card>
+        </b-col>
+      </b-row>
+    </b-container>
   </div>
 </template>
 
@@ -32,11 +32,11 @@ import Vue from 'vue'
 
 export default Vue.extend({
   name: 'IndexPage',
-  async asyncData({ $axios, $config: { djangoURL } }) {
+  async asyncData({ $axios }) {
     try {
       const [postsRes, tagRes] = await Promise.all([
-        $axios.get(`${djangoURL}/api/v1/post`),
-        $axios.get(`${djangoURL}/api/v1/tag`),
+        $axios.get('/api/v1/post'),
+        $axios.get('/api/v1/tag'),
       ])
       return {
         posts: postsRes.data.data,
@@ -64,17 +64,15 @@ export default Vue.extend({
   padding: 11px 0px 0px 16px;
   background-color: rgba(0, 0, 0, 0);
 }
+
+.post-cards {
+  width: 800px;
+}
 .post-card {
   cursor: pointer;
-  vertical-align: middle;
-  margin: 0 auto;
-  width: 800px;
   overflow: hidden;
   text-overflow: ellipsis;
   min-height: 150px;
-  /* -webkit-line-clamp: 2;
-  display: -webkit-box;
-  -webkit-box-orient: vertical; */
   word-wrap: break-word;
 }
 
@@ -88,7 +86,6 @@ export default Vue.extend({
 
 .tagbar {
   width: 800px;
-  margin: 0 auto;
 }
 
 .tag {

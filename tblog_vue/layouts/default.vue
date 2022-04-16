@@ -1,14 +1,14 @@
 <template>
   <div>
     <b-navbar class="pl-0" toggleable="lg" type="light" variant="light" sticky>
-      <div class="main-navbar">
+      <b-container class="main-navbar">
         <b-navbar-brand>
           <NuxtLink class="main-link" to="/">Tblog</NuxtLink>
         </b-navbar-brand>
         <b-button variant="outline-primary" pill size="md">
           <NuxtLink to="/create">Create</NuxtLink>
         </b-button>
-      </div>
+      </b-container>
     </b-navbar>
     <Nuxt />
   </div>
@@ -16,12 +16,7 @@
 
 <style scoped>
 .main-navbar {
-  width: 800px;
-  vertical-align: middle;
-  margin: 0 auto;
-  padding-left: 10px;
-  display: flex;
-  justify-content: space-between;
+  width: 100%;
 }
 
 .main-link {
