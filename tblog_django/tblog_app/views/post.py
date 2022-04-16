@@ -10,7 +10,7 @@ from typing import List
 logger = logging.getLogger('django')
 
 
-class ProjectView(View):
+class PostView(View):
     def _object_to_tag(self, tags: List[Tag]) -> List[str]:
         ret = [''] * len(tags)
         for i, tag in enumerate(tags):
