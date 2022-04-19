@@ -1,8 +1,6 @@
 <template>
   <div>
-    <b-container class="tagbar">
-      <span v-for="tag in tags" class="tag">{{ tag }}</span>
-    </b-container>
+    <tagbar :tags="tags" />
     <b-container class="post-cards">
       <b-row>
         <b-col cols="12">
@@ -18,7 +16,9 @@
               {{ post.description }}
             </b-card-text>
             <template #footer>
-              <span v-for="t in post.tag" class="card-tag">{{ t }} </span>
+              <span v-for="t in post.tags" :key="t" class="card-tag"
+                >{{ t }}
+              </span>
             </template>
           </b-card>
         </b-col>
@@ -29,9 +29,13 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import Tagbar from '@/components/TagBar.vue'
 
 export default Vue.extend({
   name: 'IndexPage',
+  components: {
+    Tagbar,
+  },
   async asyncData({ $axios }) {
     try {
       const [postsRes, tagRes] = await Promise.all([
@@ -82,22 +86,6 @@ export default Vue.extend({
 
 .post-card-text {
   color: hsla(0, 0%, 0%, 0.801);
-}
-
-.tagbar {
-  width: 800px;
-}
-
-.tag {
-  font-size: 14px;
-  display: inline-block;
-  padding: 4px 10px;
-  margin: 15px 8px 10px 0;
-  color: #959595;
-  font-weight: 600;
-  border: 1px solid #d1d1d1;
-  border-radius: 14px;
-  cursor: pointer;
 }
 
 .card-tag {
