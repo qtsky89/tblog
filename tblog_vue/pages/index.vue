@@ -1,6 +1,6 @@
 <template>
   <div>
-    <tagbar :tags="tags" />
+    <tag-bar :tags="tags" />
     <b-container class="post-cards">
       <b-row>
         <b-col cols="12">
@@ -29,12 +29,12 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import Tagbar from '@/components/TagBar.vue'
+import TagBar from '@/components/TagBar.vue'
 
 export default Vue.extend({
   name: 'IndexPage',
   components: {
-    Tagbar,
+    TagBar,
   },
   async asyncData({ $axios }) {
     try {
