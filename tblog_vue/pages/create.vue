@@ -40,7 +40,7 @@
         />
       </b-row>
       <b-row>
-        <no-ssr>
+        <client-only>
           <mavon-editor
             v-model="body"
             class="editor mt-3"
@@ -50,7 +50,7 @@
             placeholder="Enter the post body"
             :box-shadow="false"
           />
-        </no-ssr>
+        </client-only>
       </b-row>
     </b-container>
   </div>
@@ -102,6 +102,9 @@ export default {
         preview: true,
       },
     }
+  },
+  mounted() {
+    console.log(this.$route.name)
   },
   methods: {
     async publish() {
