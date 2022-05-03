@@ -64,6 +64,7 @@ interface publishData {
 }
 
 export default {
+  props: {},
   data() {
     return {
       title: '',
