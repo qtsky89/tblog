@@ -1,7 +1,7 @@
 <template>
   <div>
     <tag-bar :tags="post.tags" />
-    <b-container class="post-body">
+    <b-container class="post-body mt-3">
       <span>{{ post.body }}</span>
     </b-container>
   </div>
