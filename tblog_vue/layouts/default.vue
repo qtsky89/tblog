@@ -11,6 +11,9 @@
               <b-avatar class="rounded-circle"></b-avatar>
             </template>
             <b-dropdown-item to="/create">Create</b-dropdown-item>
+            <b-dropdown-item v-if="isReadPage" :to="`/update/${readPageId}`"
+              >Update
+            </b-dropdown-item>
             <b-dropdown-item to="/logout">Log out</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
@@ -22,10 +25,12 @@
 <script lang="ts">
 import Vue from 'vue'
 export default Vue.extend({
-  methods: {
-    test() {
-      console.log('test')
-      // this.$router.push(`/post/${id}`)
+  computed: {
+    isReadPage(): boolean {
+      return this.$route.name === 'post-id'
+    },
+    readPageId(): number {
+      return this.$route.params.id
     },
   },
 })
