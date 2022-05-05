@@ -64,7 +64,12 @@ interface publishData {
 }
 
 export default {
-  props: {},
+  props: {
+    form: {
+      type: Object,
+      default: () => {},
+    },
+  },
   data() {
     return {
       title: '',
@@ -104,6 +109,7 @@ export default {
     }
   },
   mounted() {
+    console.log(this.form)
     console.log(this.$route.name)
   },
   methods: {
