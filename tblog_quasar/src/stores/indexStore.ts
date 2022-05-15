@@ -8,17 +8,31 @@ interface Post {
   tags: Array<string>
 }
 
-export const usePostStore = defineStore('index', {
-  state: () => ({
+interface IndexState {
+  posts: Array<Post>
+  tags: Array<string>
+}
+
+export const useIndexStore = defineStore('index', {
+  state: (): IndexState => ({
     posts: [],
     tags: [],
   }),
   getters: {
-    doubleCount: (state) => state.counter * 2,
+    doubleCount: (state) => 1 * 2,
   },
   actions: {
-    increment() {
-      this.counter++
+    async initialize() {
+      try {
+        const [postsRes, tagRes] = await Promise.all([
+          this.api.get('/api/v1/post'),
+          this.api.get('/api/v1/tag'),
+        ])
+        this.posts = postsRes.data.data
+        this.tags = tagRes.data.data
+      } catch (error) {
+        console.error(error)
+      }
     },
   },
 })

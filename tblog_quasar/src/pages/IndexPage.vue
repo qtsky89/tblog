@@ -1,24 +1,76 @@
 <template>
-  <div>{{ p.counter }}</div>
+  <q-page class="q-pa-md post-cards row">
+    <q-card
+      v-for="post in s.posts"
+      :key="post.id"
+      class="col-12 q-mt-sm q-mb-sm post-card"
+      @click="postClick(post.id)"
+    >
+      <div class="click">
+        <q-card-section>
+          <div class="text-h6">{{ post.title }}</div>
+        </q-card-section>
+        <q-card-section class="q-pt-none description-text">
+          {{ post.description }}
+        </q-card-section>
+      </div>
+
+      <q-separator inset />
+      <q-card-actions class="q-mt-sm">
+        <span v-for="t in post.tags" :key="t" class="card-tags click"
+          >{{ t }}
+        </span>
+      </q-card-actions>
+    </q-card>
+  </q-page>
 </template>
 
 <script lang="ts">
-import { usePostStore } from 'stores/postStore'
+import { useIndexStore } from 'stores/indexStore'
 
 export default {
-  preFetch({ store }) {
-    const p = usePostStore(store)
-    p.increment()
-    p.increment()
-    p.increment()
+  async preFetch({ store }) {
+    const p = useIndexStore(store)
+    await p.initialize()
   },
 }
 </script>
 
 <script setup lang="ts">
 import { api } from 'boot/axios'
-const p = usePostStore()
+const s = useIndexStore()
 
-const res = await api.get('/api/v1/post')
-console.log(res)
+function postClick(id: number) {
+  this.$router.push(`/post/${id}`)
+}
 </script>
+
+<style scoped>
+.post-cards {
+  width: 850px;
+  margin: auto;
+}
+
+.card-tags {
+  font-size: 14px;
+  display: inline-block;
+  padding: 0px 5px;
+  margin: 0px 8px 10px 0px;
+  color: #959595;
+  font-weight: 600;
+  border: 1px solid #d1d1d1;
+  border-radius: 14px;
+  cursor: pointer;
+}
+
+.description-text {
+  color: hsla(0, 0%, 0%, 0.55);
+}
+
+.click {
+  cursor: pointer;
+}
+.click:hover {
+  background: #4093d2 !important;
+}
+</style>

@@ -15,7 +15,7 @@ declare module '@vue/runtime-core' {
 // for each client)
 const api = axios.create({ baseURL: process.env.DJANGO_URL })
 
-export default boot(({ app }) => {
+export default boot(({ app, store }) => {
   // for use inside Vue files (Options API) through this.$axios and this.$api
 
   app.config.globalProperties.$axios = axios
@@ -25,6 +25,10 @@ export default boot(({ app }) => {
   app.config.globalProperties.$api = api
   // ^ ^ ^ this will allow you to use this.$api (for Vue Options API form)
   //       so you can easily perform requests against your app's API
+
+  store.use(({ store }) => {
+    store.api = api
+  })
 })
 
 export { api }
