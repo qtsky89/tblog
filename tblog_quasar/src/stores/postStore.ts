@@ -1,8 +1,17 @@
 import { defineStore } from 'pinia'
 
-export const usePostStore = defineStore('post', {
+interface Post {
+  id: number
+  title: string
+  description: string
+  create_date: string
+  tags: Array<string>
+}
+
+export const usePostStore = defineStore('index', {
   state: () => ({
-    counter: 0,
+    posts: [],
+    tags: [],
   }),
   getters: {
     doubleCount: (state) => state.counter * 2,
