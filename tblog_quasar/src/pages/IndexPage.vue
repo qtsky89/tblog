@@ -1,23 +1,23 @@
 <template>
-  <div>{{ c.counter }}</div>
+  <div>{{ p.counter }}</div>
 </template>
 
 <script lang="ts">
-import { useCounterStore } from 'stores/example-store'
+import { usePostStore } from 'stores/postStore'
 
 export default {
   preFetch({ store }) {
-    const c = useCounterStore(store)
-    c.increment()
-    c.increment()
-    c.increment()
+    const p = usePostStore(store)
+    p.increment()
+    p.increment()
+    p.increment()
   },
 }
 </script>
 
 <script setup lang="ts">
 import { api } from 'boot/axios'
-const c = useCounterStore()
+const p = usePostStore()
 
 const res = await api.get('/api/v1/post')
 console.log(res)
