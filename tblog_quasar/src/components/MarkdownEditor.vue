@@ -24,16 +24,38 @@
   </div>
 </template>
 
-<script setup>
-import { reactive } from 'vue'
+<script setup lang="ts">
+import { reactive, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { api } from 'boot/axios'
 
-const data = reactive({
+// interface
+interface Post {
+  id: number
+  title: string
+  body: string
+  description: string
+  create_date: string
+  tags: Array<string>
+}
+interface Prop {
+  data: Post
+}
+//
+
+let data: Post = reactive({
+  id: 0,
   title: '',
   body: '',
   description: '',
   tags: [],
+  create_date: '',
+})
+
+const props = defineProps<Prop>()
+onMounted(async () => {
+  console.log('child')
+  console.log(props.data)
 })
 
 const editorOption = {

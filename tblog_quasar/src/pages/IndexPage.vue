@@ -37,11 +37,11 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { api } from 'boot/axios'
+import { useRouter } from 'vue-router'
 const s = useIndexStore()
-
+const r = useRouter()
 function postClick(id: number) {
-  this.$router.push(`/post/${id}`)
+  r.push(`/post/${id}`)
 }
 </script>
 

@@ -1,17 +1,5 @@
 import { defineStore } from 'pinia'
-
-interface Post {
-  id: number
-  title: string
-  description: string
-  create_date: string
-  tags: Array<string>
-}
-
-interface IndexState {
-  posts: Array<Post>
-  tags: Array<string>
-}
+import { IndexState } from 'components/models'
 
 export const useIndexStore = defineStore('index', {
   state: (): IndexState => ({
