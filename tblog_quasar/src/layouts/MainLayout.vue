@@ -11,7 +11,7 @@
           @click="toggleLeftDrawer"
         />
         <q-toolbar-title>
-          <router-link class="main-link" to="/">Wonhee's Tech Blog</router-link>
+          <router-link class="main-link" to="/">Tblog</router-link>
         </q-toolbar-title>
         <ControlDropdown />
       </q-toolbar>
