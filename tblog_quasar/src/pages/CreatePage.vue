@@ -92,6 +92,5 @@ async function publish() {
 .editor {
   width: 100%;
   height: 65vh;
-  /* border: 1px solid #ced4da; */
 }
 </style>
