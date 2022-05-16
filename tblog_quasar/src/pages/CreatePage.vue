@@ -27,14 +27,9 @@
 </template>
 
 <script setup>
-import { onMounted, reactive } from 'vue'
-import { useRoute } from 'vue-router'
+import { reactive } from 'vue'
+import { useRouter } from 'vue-router'
 import { api } from 'boot/axios'
-
-onMounted(() => {
-  const route = useRoute()
-  console.log(route.params)
-})
 
 const data = reactive({
   title: '',
@@ -74,9 +69,11 @@ const editorOption = {
   preview: true,
 }
 
+const router = useRouter()
 async function publish() {
   try {
     await api.post('/api/v1/post', data)
+    router.push('/')
   } catch (error) {
     console.error(error)
   }
