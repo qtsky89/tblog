@@ -4,7 +4,7 @@
 
 <script setup lang="ts">
 import MarkdownEditor from 'components/MarkdownEditor.vue'
-import { Post } from 'components/models'
+import { Post } from 't-common'
 import { useRoute } from 'vue-router'
 import { onBeforeMount } from 'vue'
 import { api } from 'boot/axios'

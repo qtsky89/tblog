@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { IndexState } from 'components/models'
+import { IndexState } from 't-common'
 
 export const useIndexStore = defineStore('index', {
   state: (): IndexState => ({
