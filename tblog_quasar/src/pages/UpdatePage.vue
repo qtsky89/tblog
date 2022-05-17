@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import MarkdownEditor from 'components/MarkdownEditor.vue'
+import MarkdownEditor from 'components/MarkdownEditor/MarkdownEditor.vue'
 import { useRoute } from 'vue-router'
 import { onMounted } from 'vue'
 import { usePostStore } from 'stores/postStore'
@@ -11,10 +11,6 @@ import { usePostStore } from 'stores/postStore'
 onMounted(async () => {
   const p = usePostStore()
   const r = useRoute()
-  try {
-    await p.initialize(r.params.id as string)
-  } catch (error) {
-    console.error(error)
-  }
+  await p.initialize(r.params.id as string)
 })
 </script>

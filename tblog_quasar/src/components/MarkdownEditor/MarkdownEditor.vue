@@ -24,39 +24,9 @@
 import { usePostStore } from 'stores/postStore'
 import { useRouter } from 'vue-router'
 import { api } from 'boot/axios'
+import { editorOption } from './editorOption'
 
 const p = usePostStore()
-
-const editorOption = {
-  bold: true,
-  italic: true,
-  header: true,
-  underline: true,
-  strikethrough: true,
-  mark: true,
-  superscript: true,
-  subscript: true,
-  quote: true,
-  ol: true,
-  ul: true,
-  link: true,
-  imagelink: true,
-  code: true,
-  table: true,
-  fullscreen: true,
-  readmodel: true,
-  htmlcode: true,
-  help: true,
-  undo: true,
-  redo: true,
-  trash: true,
-  navigation: true,
-  alignleft: true,
-  aligncenter: true,
-  alignright: true,
-  subfield: true,
-  preview: true,
-}
 
 const router = useRouter()
 async function publish() {

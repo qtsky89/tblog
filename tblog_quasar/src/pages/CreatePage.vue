@@ -3,7 +3,7 @@
 </template>
 
 <script setup>
-import MarkdownEditor from 'components/MarkdownEditor.vue'
+import MarkdownEditor from 'components/MarkdownEditor/MarkdownEditor.vue'
 import { onMounted } from 'vue'
 import { usePostStore } from 'stores/postStore'
 
