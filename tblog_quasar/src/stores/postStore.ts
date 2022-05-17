@@ -12,6 +12,14 @@ export const usePostStore = defineStore('post', {
     tags: [],
   }),
   actions: {
+    reset() {
+      this.id = 0
+      this.title = ''
+      this.body = ''
+      this.description = ''
+      this.create_date = ''
+      this.tags = []
+    },
     async initialize(id: string) {
       try {
         const res = await api.get(`/api/v1/post/${id}`)
