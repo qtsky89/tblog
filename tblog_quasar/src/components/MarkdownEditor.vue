@@ -1,19 +1,15 @@
 <template>
   <div class="editor-container">
-    <q-input class="input-form" v-model="data.title" label="title">
+    <q-input class="input-form" v-model="p.title" label="title">
       <template v-slot:after>
         <q-btn round @click="publish" icon="send" />
       </template>
     </q-input>
-    <q-input
-      class="input-form"
-      v-model="data.description"
-      label="description"
-    />
+    <q-input class="input-form" v-model="p.description" label="description" />
     <!-- TODO: add tag form -->
     <q-no-ssr>
       <mavon-editor
-        v-model="data.body"
+        v-model="p.body"
         class="editor q-mt-lg"
         :toolbars="editorOption"
         language="en"
@@ -25,38 +21,11 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, onMounted } from 'vue'
+import { usePostStore } from 'stores/postStore'
 import { useRouter } from 'vue-router'
 import { api } from 'boot/axios'
 
-// interface
-interface Post {
-  id: number
-  title: string
-  body: string
-  description: string
-  create_date: string
-  tags: Array<string>
-}
-interface Prop {
-  data: Post
-}
-//
-
-let data: Post = reactive({
-  id: 0,
-  title: '',
-  body: '',
-  description: '',
-  tags: [],
-  create_date: '',
-})
-
-const props = defineProps<Prop>()
-onMounted(async () => {
-  console.log('child')
-  console.log(props.data)
-})
+const p = usePostStore()
 
 const editorOption = {
   bold: true,

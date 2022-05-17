@@ -29,8 +29,8 @@
 import { useIndexStore } from 'stores/indexStore'
 
 export default {
-  async preFetch({ store }) {
-    const p = useIndexStore(store)
+  async preFetch() {
+    const p = useIndexStore()
     await p.initialize()
   },
 }

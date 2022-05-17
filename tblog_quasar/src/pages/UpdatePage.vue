@@ -1,32 +1,20 @@
 <template>
-  <q-page class="q-pa-md"> <MarkdownEditor :data="data" /> </q-page>
+  <q-page class="q-pa-md"> <MarkdownEditor /> </q-page>
 </template>
 
 <script setup lang="ts">
 import MarkdownEditor from 'components/MarkdownEditor.vue'
-import { Post } from 't-common'
 import { useRoute } from 'vue-router'
-import { onBeforeMount } from 'vue'
-import { api } from 'boot/axios'
+import { onMounted } from 'vue'
+import { usePostStore } from 'stores/postStore'
 
-let data: Post = {
-  id: 0,
-  title: '',
-  body: '',
-  description: '',
-  create_date: '',
-  tags: [],
-}
-onBeforeMount(async () => {
+onMounted(async () => {
+  const p = usePostStore()
   const r = useRoute()
   try {
-    const res = await api.get(`/api/v1/post/${r.params.id}`)
-    data = res.data.data[0]
+    await p.initialize(r.params.id as string)
   } catch (error) {
     console.error(error)
   }
-
-  console.log('parent')
-  console.log(data)
 })
 </script>

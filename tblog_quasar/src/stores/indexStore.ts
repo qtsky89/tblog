@@ -1,20 +1,18 @@
 import { defineStore } from 'pinia'
 import { IndexState } from 't-common'
+import { api } from 'boot/axios'
 
 export const useIndexStore = defineStore('index', {
   state: (): IndexState => ({
     posts: [],
     tags: [],
   }),
-  getters: {
-    doubleCount: (state) => 1 * 2,
-  },
   actions: {
     async initialize() {
       try {
         const [postsRes, tagRes] = await Promise.all([
-          this.api.get('/api/v1/post'),
-          this.api.get('/api/v1/tag'),
+          api.get('/api/v1/post'),
+          api.get('/api/v1/tag'),
         ])
         this.posts = postsRes.data.data
         this.tags = tagRes.data.data
