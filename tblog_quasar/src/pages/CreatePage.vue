@@ -4,11 +4,13 @@
 
 <script setup>
 import MarkdownEditor from 'components/MarkdownEditor/MarkdownEditor.vue'
-import { onMounted } from 'vue'
+import { onMounted, nextTick } from 'vue'
 import { usePostStore } from 'stores/postStore'
 
 onMounted(() => {
-  const p = usePostStore()
-  p.reset()
+  nextTick(() => {
+    const p = usePostStore()
+    p.reset()
+  })
 })
 </script>

@@ -1,5 +1,16 @@
 <template>
-  <q-page class="q-pa-md"> {{ p.title }} </q-page>
+  <q-page class="q-pa-md post-card">
+    <h5>{{ p.title }}</h5>
+    <mavon-editor
+      v-model="p.body"
+      class="editor q-mt-lg"
+      language="en"
+      font-size="16px"
+      :box-shadow="false"
+      :toolbarsFlag="false"
+      :subfield="false"
+      defaultOpen="preview"
+  /></q-page>
 </template>
 
 <script lang="ts">
@@ -15,3 +26,10 @@ export default {
 <script setup lang="ts">
 const p = usePostStore()
 </script>
+
+<style scoped>
+.post-card {
+  width: 850px;
+  margin: auto;
+}
+</style>

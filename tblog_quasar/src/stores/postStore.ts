@@ -4,7 +4,6 @@ import { api } from 'boot/axios'
 
 export const usePostStore = defineStore('post', {
   state: (): Post => ({
-    id: 0,
     title: '',
     body: '',
     description: '',
@@ -13,7 +12,6 @@ export const usePostStore = defineStore('post', {
   }),
   actions: {
     reset() {
-      this.id = 0
       this.title = ''
       this.body = ''
       this.description = ''
@@ -23,7 +21,6 @@ export const usePostStore = defineStore('post', {
     async initialize(id: string) {
       try {
         const res = await api.get(`/api/v1/post/${id}`)
-        this.id = res.data.data[0].id
         this.title = res.data.data[0].title
         this.body = res.data.data[0].body
         this.description = res.data.data[0].description
