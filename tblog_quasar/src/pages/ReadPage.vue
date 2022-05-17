@@ -1,16 +1,8 @@
 <template>
   <q-page class="q-pa-md post-card">
     <h5>{{ p.title }}</h5>
-    <mavon-editor
-      v-model="p.body"
-      class="editor q-mt-lg"
-      language="en"
-      font-size="16px"
-      :box-shadow="false"
-      :toolbarsFlag="false"
-      :subfield="false"
-      defaultOpen="preview"
-  /></q-page>
+    <q-markdown :src="p.body" />
+  </q-page>
 </template>
 
 <script lang="ts">
