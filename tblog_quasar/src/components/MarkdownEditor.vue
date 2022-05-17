@@ -61,7 +61,7 @@ const editorOption = {
 const router = useRouter()
 async function publish() {
   try {
-    await api.post('/api/v1/post', data)
+    await api.post('/api/v1/post', p.$state)
     router.push('/')
   } catch (error) {
     console.error(error)
