@@ -1,5 +1,6 @@
 <template>
   <q-page class="q-pa-md post-cards row">
+    <TagBar :tags="s.tags" />
     <q-card
       v-for="post in s.posts"
       :key="post.id"
@@ -27,6 +28,7 @@
 
 <script lang="ts">
 import { useIndexStore } from 'stores/indexStore'
+import TagBar from 'components/TagBar.vue'
 
 export default {
   async preFetch() {
