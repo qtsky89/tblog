@@ -12,43 +12,82 @@
       </template>
 
       <q-list>
-        <q-item clickable v-close-popup to="/create">
+        <q-item
+          v-for="item in items"
+          :key="item.label"
+          @click="controlClick(item.action)"
+          clickable
+          v-close-popup
+        >
           <q-item-section avatar>
             <q-avatar
+              :color="item.color"
               size="25px"
               icon="add"
-              color="blue-10"
               text-color="white"
             />
           </q-item-section>
           <q-item-section>
-            <q-item-label>Create</q-item-label>
-          </q-item-section>
-        </q-item>
-
-        <q-item clickable v-close-popup to="/update">
-          <q-item-section avatar>
-            <q-avatar
-              size="25px"
-              icon="edit"
-              color="green-10"
-              text-color="white"
-            />
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>Update</q-item-label>
+            <q-item-label>{{ item.label }}</q-item-label>
           </q-item-section>
         </q-item>
       </q-list>
-
-      <q-item clickable v-close-popup to="/delete">
-        <q-item-section avatar>
-          <q-avatar size="25px" icon="add" color="red-10" text-color="white" />
-        </q-item-section>
-        <q-item-section>
-          <q-item-label>Delete</q-item-label>
-        </q-item-section>
-      </q-item>
     </q-btn-dropdown>
   </div>
 </template>
+
+<script lang="ts">
+interface ControlItem {
+  action: string
+  color: string
+  label: string
+}
+</script>
+
+<script setup lang="ts">
+import { api } from 'src/boot/axios'
+import { computed } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+
+const route = useRoute()
+const router = useRouter()
+let items = computed(() => {
+  let ret: Array<ControlItem> = [
+    { action: 'create', color: 'blue-10', label: 'Create' },
+  ]
+  if (route.name === 'read') {
+    ret = [
+      ...ret,
+      {
+        action: 'update',
+        color: 'green-10',
+        label: 'Update',
+      },
+      {
+        action: 'delete',
+        color: 'red-10',
+        label: 'Delete',
+      },
+    ]
+  }
+  return ret
+})
+
+function controlClick(action: string): void {
+  switch (action) {
+    case 'create':
+      router.push('/create')
+      break
+    case 'update':
+      router.push(`/update/${route.params.id}`)
+      break
+    case 'delete':
+      try {
+        api.delete(`/api/v1/post/${route.params.id}`)
+        router.push('/')
+      } catch (error) {
+        console.error(error)
+      }
+  }
+}
+</script>
