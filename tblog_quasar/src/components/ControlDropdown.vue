@@ -12,43 +12,56 @@
       </template>
 
       <q-list>
-        <q-item clickable v-close-popup to="/create">
+        <q-item
+          v-for="item in items"
+          :key="item.label"
+          :to="item.to"
+          clickable
+          v-close-popup
+        >
           <q-item-section avatar>
             <q-avatar
+              :color="item.color"
               size="25px"
               icon="add"
-              color="blue-10"
               text-color="white"
             />
           </q-item-section>
           <q-item-section>
-            <q-item-label>Create</q-item-label>
-          </q-item-section>
-        </q-item>
-
-        <q-item clickable v-close-popup to="/update">
-          <q-item-section avatar>
-            <q-avatar
-              size="25px"
-              icon="edit"
-              color="green-10"
-              text-color="white"
-            />
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>Update</q-item-label>
+            <q-item-label>{{ item.label }}</q-item-label>
           </q-item-section>
         </q-item>
       </q-list>
-
-      <q-item clickable v-close-popup to="/delete">
-        <q-item-section avatar>
-          <q-avatar size="25px" icon="add" color="red-10" text-color="white" />
-        </q-item-section>
-        <q-item-section>
-          <q-item-label>Delete</q-item-label>
-        </q-item-section>
-      </q-item>
     </q-btn-dropdown>
   </div>
 </template>
+
+<script lang="ts">
+interface ControlItem {
+  to: string
+  color: string
+  label: string
+}
+</script>
+
+<script setup lang="ts">
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
+//var items = ['/create', '/update', 'delete']
+
+const r = useRoute()
+console.log(r.path)
+let items = computed(() => {
+  let ret: Array<ControlItem> = [
+    { to: '/create', color: 'blue-10', label: 'Create' },
+  ]
+  if (r.name === 'read') {
+    ret.push({
+      to: `/update/${r.params.id}`,
+      color: 'green-10',
+      label: 'Update',
+    })
+  }
+  return ret
+})
+</script>
