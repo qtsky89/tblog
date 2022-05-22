@@ -15,7 +15,7 @@
         <q-item
           v-for="item in items"
           :key="item.label"
-          :to="item.to"
+          @click="controlClick(item.action)"
           clickable
           v-close-popup
         >
@@ -38,30 +38,56 @@
 
 <script lang="ts">
 interface ControlItem {
-  to: string
+  action: string
   color: string
   label: string
 }
 </script>
 
 <script setup lang="ts">
+import { api } from 'src/boot/axios'
 import { computed } from 'vue'
-import { useRoute } from 'vue-router'
-//var items = ['/create', '/update', 'delete']
+import { useRoute, useRouter } from 'vue-router'
 
-const r = useRoute()
-console.log(r.path)
+const route = useRoute()
+const router = useRouter()
 let items = computed(() => {
   let ret: Array<ControlItem> = [
-    { to: '/create', color: 'blue-10', label: 'Create' },
+    { action: 'create', color: 'blue-10', label: 'Create' },
   ]
-  if (r.name === 'read') {
-    ret.push({
-      to: `/update/${r.params.id}`,
-      color: 'green-10',
-      label: 'Update',
-    })
+  if (route.name === 'read') {
+    ret = [
+      ...ret,
+      {
+        action: 'update',
+        color: 'green-10',
+        label: 'Update',
+      },
+      {
+        action: 'delete',
+        color: 'red-10',
+        label: 'Delete',
+      },
+    ]
   }
   return ret
 })
+
+function controlClick(action: string): void {
+  switch (action) {
+    case 'create':
+      router.push('/create')
+      break
+    case 'update':
+      router.push(`/update/${route.params.id}`)
+      break
+    case 'delete':
+      try {
+        api.delete(`/api/v1/post/${route.params.id}`)
+        router.push('/')
+      } catch (error) {
+        console.error(error)
+      }
+  }
+}
 </script>
