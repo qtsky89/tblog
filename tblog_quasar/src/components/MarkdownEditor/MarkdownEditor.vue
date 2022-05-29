@@ -26,7 +26,7 @@ import { usePostStore } from 'stores/postStore'
 import { useRouter } from 'vue-router'
 import { api } from 'boot/axios'
 import { editorOption } from './editorOption'
-import TagInput from 'components/TagInput.vue'
+import TagInput from '.TagInput.vue'
 
 const p = usePostStore()
 
