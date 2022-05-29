@@ -6,8 +6,7 @@
       </template>
     </q-input>
     <q-input class="input-form" v-model="p.description" label="description" />
-    <!-- TODO: add tag form -->
-    <TagInput></TagInput>
+    <TagInput />
     <q-no-ssr>
       <mavon-editor
         v-model="p.body"
