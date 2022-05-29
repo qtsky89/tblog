@@ -1,5 +1,6 @@
 declare module 't-common' {
   export interface Post {
+    id: number | null
     title: string
     body: string
     description: string

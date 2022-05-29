@@ -4,6 +4,7 @@ import { api } from 'boot/axios'
 
 export const usePostStore = defineStore('post', {
   state: (): Post => ({
+    id: null,
     title: '',
     body: '',
     description: '',

@@ -5,9 +5,8 @@
       v-for="post in s.posts"
       :key="post.id"
       class="col-12 q-mt-sm q-mb-sm post-card"
-      @click="postClick(post.id)"
     >
-      <div class="click">
+      <div class="click" @click="postClick(post.id as number)">
         <q-card-section>
           <div class="text-h6">{{ post.title }}</div>
         </q-card-section>
