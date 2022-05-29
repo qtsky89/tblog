@@ -7,6 +7,7 @@
     </q-input>
     <q-input class="input-form" v-model="p.description" label="description" />
     <!-- TODO: add tag form -->
+    <TagInput></TagInput>
     <q-no-ssr>
       <mavon-editor
         v-model="p.body"
@@ -25,6 +26,7 @@ import { usePostStore } from 'stores/postStore'
 import { useRouter } from 'vue-router'
 import { api } from 'boot/axios'
 import { editorOption } from './editorOption'
+import TagInput from 'components/TagInput.vue'
 
 const p = usePostStore()
 
