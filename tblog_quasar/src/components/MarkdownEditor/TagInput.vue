@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div v-for="(tag, index) in tags" :key="tag" class="tag-input">
-      <span @click="deleteTag(index)">x</span>{{ tag }}
+    <div v-for="(tag, index) in p.tags" :key="tag" class="tag-input">
+      <span style="color: black" @click="deleteTag(index)">x </span>{{ tag }}
     </div>
     <q-input
       @keyup.enter="addTag"
@@ -12,62 +12,47 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref } from 'vue'
-import type { Ref } from 'vue'
+import { usePostStore } from 'src/stores/postStore'
 
-const tags: Ref<string[]> = ref([])
+const p = usePostStore()
 
 function addTag(e: Event) {
   e.preventDefault()
   const val = (e.target as HTMLInputElement).value.trim()
-  if (val.length > 0 && !tags.value.includes(val)) {
-    tags.value.push(val)
+  if (val.length > 0 && !p.tags.includes(val)) {
+    p.tags.push(val)
     ;(e.target as HTMLInputElement).value = ''
   }
 }
 
 function deleteTag(index: number) {
-  tags.value.splice(index, 1)
+  p.tags.splice(index, 1)
 }
 
 function deleteLastTag(e: Event) {
   e.preventDefault()
   if ((e.target as HTMLInputElement).value.length === 0) {
-    deleteTag(tags.value.length - 1)
+    deleteTag(p.tags.length - 1)
   }
 }
 </script>
 <style scoped>
-/* .tag-input {
-  width: 100%;
-  border: 1px solid #eee;
-  font-size: 1em;
-  height: 70px;
-  box-sizing: border-box;
-  padding: 0 10px;
-} */
-
 .tag-input {
   height: 30px;
+  font-size: 14px;
   float: left;
-  margin-right: 10px;
+  margin: 20px 8px 0px 0px;
+  color: #959595;
+  font-weight: 600;
+  border: 1px solid #d1d1d1;
   background-color: #eee;
-  margin-top: 16px;
-  line-height: 30px;
+  line-height: 25px;
   padding: 0 5px;
-  border-radius: 5px;
+  border-radius: 14px;
 }
 
 .tag-input > span {
   cursor: pointer;
-  opacity: 0.75;
+  opacity: 0.4;
 }
-
-/* .tag-input__text {
-  border: none;
-  outline: none;
-  font-size: 0.9em;
-  line-height: 50px;
-  background: none;
-} */
 </style>
