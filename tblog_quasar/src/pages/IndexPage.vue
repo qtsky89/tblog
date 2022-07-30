@@ -3,7 +3,7 @@
     <TagBar :tags="s.tags" />
     <q-card
       v-for="post in s.posts"
-      :key="post.id"
+      :key="(post.id as number)"
       class="col-12 q-mt-sm q-mb-sm post-card"
     >
       <div class="click" @click="postClick(post.id as number)">
@@ -17,8 +17,8 @@
 
       <q-separator inset />
       <q-card-actions class="q-mt-sm">
-        <span v-for="t in post.tags" :key="t" class="card-tags click"
-          >{{ t }}
+        <span v-for="t in post.tags" :key="t" class="card-tags click">
+          {{ t }}
         </span>
       </q-card-actions>
     </q-card>
