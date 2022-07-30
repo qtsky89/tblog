@@ -7,6 +7,7 @@
 
 <script lang="ts">
 import { usePostStore } from 'stores/postStore'
+import { useMeta } from 'quasar'
 
 export default {
   async preFetch({ currentRoute }) {
@@ -17,6 +18,27 @@ export default {
 </script>
 <script setup lang="ts">
 const p = usePostStore()
+
+// TODO: Optimize meta data (https://quasar.dev/quasar-plugins/meta)
+useMeta(() => {
+  return {
+    title: p.title,
+    meta: {
+      description: { name: 'description', content: p.description },
+      keywords: { name: 'keywords', content: p.tags },
+      equiv: {
+        'http-equiv': 'Content-Type',
+        content: 'text/html; charset=UTF-8',
+      },
+      ogTitle: {
+        property: 'og:title',
+        template() {
+          return p.title
+        },
+      },
+    },
+  }
+})
 </script>
 
 <style scoped>
