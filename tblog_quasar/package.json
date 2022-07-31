@@ -20,9 +20,10 @@
     "mavon-editor": "^3.0.0-beta",
     "pinia": "^2.0.11",
     "quasar": "^2.6.0",
-    "vue": "^3.0.0",
+    "vue": "^3.0.3",
     "vue-i18n": "^9.0.0",
-    "vue-router": "^4.0.0"
+    "vue-router": "^4.0.0",
+    "vue3-google-login": "^2.0.11"
   },
   "devDependencies": {
     "@intlify/vite-plugin-vue-i18n": "^3.3.1",
