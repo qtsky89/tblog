@@ -1,7 +1,6 @@
 import logging
-import json
 from http import HTTPStatus as Status
-from django.http import HttpRequest, JsonResponse
+from django.http import JsonResponse
 from django.forms.models import model_to_dict
 from django.views.generic import View
 from tblog_app.models import Post
