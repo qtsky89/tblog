@@ -48,13 +48,38 @@ interface ControlItem {
 import { api } from 'src/boot/axios'
 import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { googleOneTap, decodeCredential } from 'vue3-google-login';
+import { useUserStore } from 'stores/userStore'
 
 const route = useRoute()
 const router = useRouter()
+const u = useUserStore()
+
 let items = computed(() => {
   let ret: Array<ControlItem> = [
     { action: 'create', color: 'blue-10', label: 'Create' },
   ]
+
+  if (!u.isLoggedIn) {
+    ret = [
+      ...ret,
+      {
+        action: 'login',
+        color: 'green-10',
+        label: 'Login',
+      },
+    ]
+  } else {
+    ret = [
+      ...ret,
+      {
+        action: 'logout',
+        color: 'green-10',
+        label: 'Logout',
+      },
+    ]
+  }
+
   if (route.name === 'read') {
     ret = [
       ...ret,
@@ -75,6 +100,14 @@ let items = computed(() => {
 
 function controlClick(action: string): void {
   switch (action) {
+    case 'login': {
+      login()
+      break
+    }
+    case 'logout': {
+      logout()
+      break
+    }
     case 'create':
       router.push('/create')
       break
@@ -90,4 +123,23 @@ function controlClick(action: string): void {
       }
   }
 }
+
+async function login(): Promise<void> {
+  try {
+    const res = await googleOneTap()
+    const c = decodeCredential(res.credential)
+    u.login(c.emailAddress, c.picture)
+  } catch (e) {
+    console.error(e)
+  }
+}
+
+function logout() {
+  try {
+    u.logout()
+  } catch (e) {
+    console.error(e)
+  }
+}
+
 </script>

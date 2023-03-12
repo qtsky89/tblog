@@ -13,7 +13,6 @@
         <q-toolbar-title>
           <router-link class="main-link" to="/">Test</router-link>
         </q-toolbar-title>
-        <GoogleLogin :callback="callback" prompt />
         <ControlDropdown />
       </q-toolbar>
     </q-header>
@@ -38,7 +37,6 @@
 import { ref } from 'vue'
 import EssentialLink from 'components/EssentialLink.vue'
 import ControlDropdown from 'components/ControlDropdown.vue'
-import { decodeCredential } from 'vue3-google-login'
 
 const essentialLinks = [
   {
@@ -51,15 +49,6 @@ const essentialLinks = [
 const leftDrawerOpen = ref(false)
 function toggleLeftDrawer() {
   leftDrawerOpen.value = !leftDrawerOpen.value
-}
-
-const callback = (response) => {
-  // This callback will be triggered when the user selects or login to
-  // his Google account from the popup
-  console.log('Handle the response', response)
-
-  const userData = decodeCredential(response.credential)
-  console.log(userData)
 }
 </script>
 
