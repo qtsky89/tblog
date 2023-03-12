@@ -36,6 +36,10 @@ module.exports = configure(function (/* ctx */) {
         server: false,
       },
       'qmarkdown',
+      {
+        path: 'googleLogin',
+        server: false,
+      },
     ],
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#css

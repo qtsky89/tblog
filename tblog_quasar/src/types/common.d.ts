@@ -12,4 +12,13 @@ declare module 't-common' {
     posts: Array<Post>
     tags: Array<string>
   }
+
+  export interface UserState {
+    user: User
+  }
+  export interface User {
+    email: string,
+    isSu: boolean,
+    picture: string,
+  }
 }

@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from pathlib import Path
 import os
 import pymysql
-from tblog_django.my_settings import SECRET_KEY, DATABASES
+from tblog_django.my_settings import SECRET_KEY, DATABASES, SU_EMAIL
 pymysql.install_as_MySQLdb()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,6 +25,8 @@ TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = SECRET_KEY
+
+SU_EMAIL = SU_EMAIL
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
