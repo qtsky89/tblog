@@ -5,6 +5,12 @@
       <template #label>
         <q-avatar>
           <img
+            v-if="u.isLoggedIn"
+            class="bg-black"
+            :src="u.user.picture"
+          />
+          <img
+            v-else
             class="bg-black"
             src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg"
           />
@@ -50,50 +56,30 @@ import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { googleOneTap, decodeCredential } from 'vue3-google-login';
 import { useUserStore } from 'stores/userStore'
+import { decodeCredentialResponse } from './types';
 
 const route = useRoute()
 const router = useRouter()
 const u = useUserStore()
 
 let items = computed(() => {
-  let ret: Array<ControlItem> = [
-    { action: 'create', color: 'blue-10', label: 'Create' },
-  ]
+  let ret: Array<ControlItem> = []
 
   if (!u.isLoggedIn) {
-    ret = [
-      ...ret,
-      {
-        action: 'login',
-        color: 'green-10',
-        label: 'Login',
-      },
-    ]
+    ret.push({action: 'login', color: 'green-10', label: 'Login'})
   } else {
-    ret = [
-      ...ret,
-      {
-        action: 'logout',
-        color: 'green-10',
-        label: 'Logout',
-      },
-    ]
+    ret.push({action: 'logout', color: 'red-10', label: 'Logout'})
   }
 
-  if (route.name === 'read') {
-    ret = [
-      ...ret,
-      {
-        action: 'update',
-        color: 'green-10',
-        label: 'Update',
-      },
-      {
-        action: 'delete',
-        color: 'red-10',
-        label: 'Delete',
-      },
-    ]
+  console.log(u.user.isSu)
+  if (u.user.isSu) {
+    ret.push({ action: 'create', color: 'blue-10', label: 'Create' })
+    if (route.name === 'read') {
+      ret.push(
+        { action: 'update', color: 'green-10', label: 'Update' },
+        { action: 'delete', color: 'red-10', label: 'Delete' }
+      )
+    }
   }
   return ret
 })
@@ -126,9 +112,10 @@ function controlClick(action: string): void {
 
 async function login(): Promise<void> {
   try {
-    const res = await googleOneTap()
-    const c = decodeCredential(res.credential)
-    u.login(c.emailAddress, c.picture)
+    const r1 = await googleOneTap()
+    const r2 = decodeCredential(r1.credential) as decodeCredentialResponse
+    const r3 = await api.post('/api/v1/login', {email: r2.email})
+    u.login(r2.email, r2.picture, r3.data.data[0].isSu)
   } catch (e) {
     console.error(e)
   }

@@ -17,7 +17,7 @@ declare module 't-common' {
     user: User
   }
   export interface User {
-    emailAddress: string,
+    email: string,
     isSu: boolean,
     picture: string,
   }

@@ -1,29 +1,30 @@
 import { defineStore } from 'pinia'
-import { UserState } from 't-common'
+import { UserState, User } from 't-common'
 
 export const useUserStore = defineStore('user', {
   state: (): UserState => ({
-    user: defaultUserState()
+    user: defaultUser()
   }),
   actions: {
-    login(emailAddress: string, picture: string): void {
-      this.user.emailAddress = emailAddress
+    login(email: string, picture: string, isSu: boolean): void {
+      this.user.email = email
       this.user.picture = picture
+      this.user.isSu = isSu
     },
     logout(): void {
-      this.user = defaultUserState()
+      this.user = defaultUser()
     }
   },
   getters: {
     isLoggedIn(): boolean {
-      return this.user.emailAddress !== ''
+      return this.user.email !== ''
     }
   }
 })
 
-function defaultUserState() {
+function defaultUser(): User {
   return {
-    emailAddress: '',
+    email: '',
     isSu: false,
     picture: ''
   }
