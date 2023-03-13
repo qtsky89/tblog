@@ -17,7 +17,7 @@ class PostView(View):
             ret[i] = tag.name
         return ret
 
-    def get(self, *args, **kwargs):
+    def get(self, request: HttpRequest, **kwargs):
         try:
             if kwargs['pk'] == '':
                 data = [model_to_dict(obj) for obj in Post.objects.all().order_by('-created_date')]
@@ -35,7 +35,7 @@ class PostView(View):
             logger.error(e, exc_info=True)
             return JsonResponse({'message': '', 'data': []}, status=Status.INTERNAL_SERVER_ERROR)
 
-    def post(self, request: HttpRequest, *args, **kwargs):
+    def post(self, request: HttpRequest, **kwargs):
         try:
             if kwargs['pk'] != '':
                 raise Exception('pk should be empty')
