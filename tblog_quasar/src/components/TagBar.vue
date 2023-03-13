@@ -1,13 +1,17 @@
 <template>
   <div>
-    <span v-for="tag in props.tags" :key="tag" class="tag click">{{
-      tag
-    }}</span>
+    <span v-for="tag in props.tags" :key="tag" class="tag click" @click="click">
+      {{ tag }}
+    </span>
   </div>
 </template>
 
 <script setup lang="ts">
 const props = defineProps<{ tags: Array<string> }>()
+
+function click(): void {
+  console.log('test')
+}
 </script>
 
 <style scoped>

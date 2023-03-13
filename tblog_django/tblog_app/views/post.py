@@ -5,6 +5,7 @@ from django.http import HttpRequest, JsonResponse
 from django.forms.models import model_to_dict
 from tblog_app.models import Post, Tag
 from django.views.generic import View
+from django.db.models.query import QuerySet
 from typing import List
 
 logger = logging.getLogger('django')
@@ -17,10 +18,21 @@ class PostView(View):
             ret[i] = tag.name
         return ret
 
+    def _get_query_spec(self, request: HttpRequest) -> QuerySet:
+        qs = None
+        if 'tag' in request.GET:
+            qs = Post.objects.filter(tags=request.GET['tag'])
+        else:
+            qs = Post.objects.all()
+        qs = qs.order_by('-created_date')
+        return qs
+
     def get(self, request: HttpRequest, **kwargs):
         try:
             if kwargs['pk'] == '':
-                data = [model_to_dict(obj) for obj in Post.objects.all().order_by('-created_date')]
+                # build qs
+                qs = self._get_query_spec(request)
+                data = [model_to_dict(obj) for obj in qs]
                 for d in data:
                     del d['body']
             else:
