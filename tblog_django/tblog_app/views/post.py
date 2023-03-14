@@ -18,7 +18,7 @@ class PostView(View):
             ret[i] = tag.name
         return ret
 
-    def _get_query_spec(self, request: HttpRequest) -> QuerySet:
+    def _get_query_set(self, request: HttpRequest) -> QuerySet:
         qs = None
         if 'tag' in request.GET:
             qs = Post.objects.filter(tags=request.GET['tag'])
@@ -31,7 +31,7 @@ class PostView(View):
         try:
             if kwargs['pk'] == '':
                 # build qs
-                qs = self._get_query_spec(request)
+                qs = self._get_query_set(request)
                 data = [model_to_dict(obj) for obj in qs]
                 for d in data:
                     del d['body']
