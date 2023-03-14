@@ -1,10 +1,10 @@
 <template>
-  <q-page class="q-pa-md post-cards row">
-    <TagBar :tags="s.tags" />
+  <q-page class="q-pa-md post-cards">
+    <TagBar :tags="s.selectedTags" @click:tag="tagClick" />
     <q-card
-      v-for="post in s.posts"
+      v-for="post in s.selectedPosts"
       :key="(post.id as number)"
-      class="col-12 q-mt-sm q-mb-sm post-card"
+      class="col-12 q-mt-sm q-mb-sm"
     >
       <div class="click" @click="postClick(post.id as number)">
         <q-card-section>
@@ -41,6 +41,11 @@ export default {
 import { useRouter } from 'vue-router'
 const s = useIndexStore()
 const r = useRouter()
+
+function tagClick(tag: string) {
+  s.selectedTag = tag
+}
+
 function postClick(id: number) {
   r.push(`/post/${id}`)
 }

@@ -11,14 +11,15 @@ declare module 't-common' {
   export interface IndexState {
     posts: Array<Post>
     tags: Array<string>
+    selectedTag: string
   }
 
   export interface UserState {
     user: User
   }
   export interface User {
-    email: string,
-    isSu: boolean,
-    picture: string,
+    email: string
+    isSu: boolean
+    picture: string
   }
 }

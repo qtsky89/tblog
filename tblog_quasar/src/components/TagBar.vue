@@ -1,6 +1,11 @@
 <template>
   <div>
-    <span v-for="tag in props.tags" :key="tag" class="tag click" @click="click">
+    <span
+      v-for="tag in props.tags"
+      :key="tag"
+      class="tag click"
+      @click="click(tag)"
+    >
       {{ tag }}
     </span>
   </div>
@@ -8,9 +13,10 @@
 
 <script setup lang="ts">
 const props = defineProps<{ tags: Array<string> }>()
+const emits = defineEmits(['click:tag'])
 
-function click(): void {
-  console.log('test')
+function click(tag: string): void {
+  emits('click:tag', tag)
 }
 </script>
 
