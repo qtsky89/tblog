@@ -1,7 +1,7 @@
 <template>
   <q-page class="q-pa-sm post-card">
     <h3 class="q-mt-lg">{{ p.title }}</h3>
-    <span>{{ p.create_date }} </span>
+    <span>{{ formatYYYYMMDD(p.created_date) }}</span>
     <TagBar :tags="p.tags" @click:tag="tagClick" />
     <q-markdown :src="p.body" />
   </q-page>
@@ -22,6 +22,7 @@ export default {
 import { useIndexStore } from 'stores/indexStore'
 import TagBar from 'components/TagBar.vue'
 import { useRouter } from 'vue-router'
+import { formatYYYYMMDD } from '../utils/day'
 
 const p = usePostStore()
 const s = useIndexStore()

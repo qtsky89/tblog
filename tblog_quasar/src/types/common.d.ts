@@ -4,7 +4,7 @@ declare module 't-common' {
     title: string
     body: string
     description: string
-    create_date: string
+    created_date: string
     tags: Array<string>
   }
 

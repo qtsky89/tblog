@@ -16,6 +16,7 @@
     "@quasar/extras": "^1.0.0",
     "@quasar/quasar-ui-qmarkdown": "^2.0.0-beta.7",
     "axios": "^0.21.1",
+    "dayjs": "^1.11.7",
     "dotenv": "^16.0.0",
     "mavon-editor": "^3.0.0-beta",
     "pinia": "^2.0.11",

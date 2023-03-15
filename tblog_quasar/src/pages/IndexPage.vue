@@ -16,7 +16,7 @@
       </div>
 
       <q-separator inset />
-      <q-card-actions class="q-mt-sm">
+      <q-card-actions>
         <TagBar :tags="post.tags" @click:tag="tagClick" />
       </q-card-actions>
     </q-card>
