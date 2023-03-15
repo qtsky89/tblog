@@ -4,21 +4,22 @@ declare module 't-common' {
     title: string
     body: string
     description: string
-    create_date: string
+    created_date: string
     tags: Array<string>
   }
 
   export interface IndexState {
     posts: Array<Post>
     tags: Array<string>
+    selectedTag: string
   }
 
   export interface UserState {
     user: User
   }
   export interface User {
-    email: string,
-    isSu: boolean,
-    picture: string,
+    email: string
+    isSu: boolean
+    picture: string
   }
 }

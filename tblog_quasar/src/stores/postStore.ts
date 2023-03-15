@@ -8,7 +8,7 @@ export const usePostStore = defineStore('post', {
     title: '',
     body: '',
     description: '',
-    create_date: '',
+    created_date: '',
     tags: [],
   }),
   actions: {
@@ -16,7 +16,7 @@ export const usePostStore = defineStore('post', {
       this.title = ''
       this.body = ''
       this.description = ''
-      this.create_date = ''
+      this.created_date = ''
       this.tags = []
     },
     async initialize(id: string) {
@@ -25,7 +25,7 @@ export const usePostStore = defineStore('post', {
         this.title = res.data.data[0].title
         this.body = res.data.data[0].body
         this.description = res.data.data[0].description
-        this.create_date = res.data.data[0].create_date
+        this.created_date = res.data.data[0].created_date
         this.tags = res.data.data[0].tags
       } catch (error) {
         console.error(error)

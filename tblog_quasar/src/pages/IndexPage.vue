@@ -1,10 +1,10 @@
 <template>
-  <q-page class="q-pa-md post-cards row">
-    <TagBar :tags="s.tags" />
+  <q-page class="q-pa-md post-cards">
+    <TagBar :tags="s.selectedTags" @click:tag="tagClick" />
     <q-card
-      v-for="post in s.posts"
+      v-for="post in s.selectedPosts"
       :key="(post.id as number)"
-      class="col-12 q-mt-sm q-mb-sm post-card"
+      class="col-12 q-mt-sm q-mb-sm"
     >
       <div class="click" @click="postClick(post.id as number)">
         <q-card-section>
@@ -16,10 +16,8 @@
       </div>
 
       <q-separator inset />
-      <q-card-actions class="q-mt-sm">
-        <span v-for="t in post.tags" :key="t" class="card-tags click">
-          {{ t }}
-        </span>
+      <q-card-actions>
+        <TagBar :tags="post.tags" @click:tag="tagClick" />
       </q-card-actions>
     </q-card>
   </q-page>
@@ -41,6 +39,11 @@ export default {
 import { useRouter } from 'vue-router'
 const s = useIndexStore()
 const r = useRouter()
+
+function tagClick(tag: string) {
+  s.selectedTag = tag
+}
+
 function postClick(id: number) {
   r.push(`/post/${id}`)
 }
@@ -51,19 +54,6 @@ function postClick(id: number) {
   width: 850px;
   margin: auto;
 }
-
-.card-tags {
-  font-size: 14px;
-  display: inline-block;
-  padding: 0px 5px;
-  margin: 0px 8px 10px 0px;
-  color: #959595;
-  font-weight: 600;
-  border: 1px solid #d1d1d1;
-  border-radius: 14px;
-  cursor: pointer;
-}
-
 .description-text {
   color: hsla(0, 0%, 0%, 0.55);
 }

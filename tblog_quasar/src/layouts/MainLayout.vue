@@ -2,30 +2,14 @@
   <q-layout view="hHh lpr lFr">
     <q-header reveal class="bg-grey-2 text-black">
       <q-toolbar>
-        <q-btn
-          flat
-          dense
-          round
-          icon="menu"
-          aria-label="Menu"
-          @click="toggleLeftDrawer"
-        />
-        <q-toolbar-title>
-          <router-link class="main-link" to="/">Test</router-link>
+        <q-toolbar-title class="q-ml-lg">
+          <span class="main-link click" @click="mainClick()">
+            Wonhee's Tech Blog
+          </span>
         </q-toolbar-title>
         <ControlDropdown />
       </q-toolbar>
     </q-header>
-
-    <q-drawer v-model="leftDrawerOpen" side="left" bordered overlay>
-      <q-list>
-        <EssentialLink
-          v-for="link in essentialLinks"
-          :key="link.title"
-          v-bind="link"
-        />
-      </q-list>
-    </q-drawer>
 
     <q-page-container>
       <router-view />
@@ -34,21 +18,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import EssentialLink from 'components/EssentialLink.vue'
 import ControlDropdown from 'components/ControlDropdown.vue'
+import { useRouter } from 'vue-router'
+import { useIndexStore } from 'stores/indexStore'
 
-const essentialLinks = [
-  {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev',
-  },
-]
-const leftDrawerOpen = ref(false)
-function toggleLeftDrawer() {
-  leftDrawerOpen.value = !leftDrawerOpen.value
+const r = useRouter()
+const s = useIndexStore()
+function mainClick(): void {
+  s.selectedTag = ''
+  r.push('/')
 }
 </script>
 
@@ -59,5 +37,6 @@ function toggleLeftDrawer() {
   font-size: 1.5rem;
   font-family: 'Quicksand', sans-serif;
   text-decoration: none;
+  cursor: pointer;
 }
 </style>

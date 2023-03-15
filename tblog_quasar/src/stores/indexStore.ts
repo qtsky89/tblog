@@ -1,11 +1,12 @@
 import { defineStore } from 'pinia'
-import { IndexState } from 't-common'
+import { IndexState, Post } from 't-common'
 import { api } from 'boot/axios'
 
 export const useIndexStore = defineStore('index', {
   state: (): IndexState => ({
     posts: [],
     tags: [],
+    selectedTag: '',
   }),
   actions: {
     async initialize() {
@@ -19,6 +20,21 @@ export const useIndexStore = defineStore('index', {
       } catch (error) {
         console.error(error)
       }
+    },
+  },
+
+  getters: {
+    selectedPosts(): Post[] {
+      if (this.selectedTag !== '') {
+        return this.posts.filter((p) => p.tags.includes(this.selectedTag))
+      }
+      return this.posts
+    },
+    selectedTags(): string[] {
+      if (this.selectedTag !== '') {
+        return [this.selectedTag]
+      }
+      return this.tags
     },
   },
 })
