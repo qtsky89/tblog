@@ -1,6 +1,8 @@
 <template>
-  <q-page class="q-pa-md post-card">
-    <h5>{{ p.title }}</h5>
+  <q-page class="q-pa-sm post-card">
+    <h3 class="q-mt-lg">{{ p.title }}</h3>
+    <span>{{ p.create_date }} </span>
+    <TagBar :tags="p.tags" @click:tag="tagClick" />
     <q-markdown :src="p.body" />
   </q-page>
 </template>
@@ -17,7 +19,13 @@ export default {
 }
 </script>
 <script setup lang="ts">
+import { useIndexStore } from 'stores/indexStore'
+import TagBar from 'components/TagBar.vue'
+import { useRouter } from 'vue-router'
+
 const p = usePostStore()
+const s = useIndexStore()
+const r = useRouter()
 
 // TODO: Optimize meta data (https://quasar.dev/quasar-plugins/meta)
 useMeta(() => {
@@ -39,6 +47,11 @@ useMeta(() => {
     },
   }
 })
+
+function tagClick(tag: string) {
+  s.selectedTag = tag
+  r.push('/')
+}
 </script>
 
 <style scoped>

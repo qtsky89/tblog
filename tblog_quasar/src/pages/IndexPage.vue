@@ -17,9 +17,7 @@
 
       <q-separator inset />
       <q-card-actions class="q-mt-sm">
-        <span v-for="t in post.tags" :key="t" class="card-tags click">
-          {{ t }}
-        </span>
+        <TagBar :tags="post.tags" @click:tag="tagClick" />
       </q-card-actions>
     </q-card>
   </q-page>
@@ -56,19 +54,6 @@ function postClick(id: number) {
   width: 850px;
   margin: auto;
 }
-
-.card-tags {
-  font-size: 14px;
-  display: inline-block;
-  padding: 0px 5px;
-  margin: 0px 8px 10px 0px;
-  color: #959595;
-  font-weight: 600;
-  border: 1px solid #d1d1d1;
-  border-radius: 14px;
-  cursor: pointer;
-}
-
 .description-text {
   color: hsla(0, 0%, 0%, 0.55);
 }
