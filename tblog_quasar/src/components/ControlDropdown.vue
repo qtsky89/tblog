@@ -71,7 +71,6 @@ let items = computed(() => {
     ret.push({action: 'logout', color: 'red-10', label: 'Logout'})
   }
 
-  console.log(u.user.isSu)
   if (u.user.isSu) {
     ret.push({ action: 'create', color: 'blue-10', label: 'Create' })
     if (route.name === 'read') {
