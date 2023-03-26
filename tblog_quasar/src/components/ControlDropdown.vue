@@ -71,7 +71,6 @@ let items = computed(() => {
     ret.push({action: 'logout', color: 'red-10', label: 'Logout'})
   }
 
-  console.log(u.user.isSu)
   if (u.user.isSu) {
     ret.push({ action: 'create', color: 'blue-10', label: 'Create' })
     if (route.name === 'read') {
@@ -115,7 +114,7 @@ async function login(): Promise<void> {
     const r1 = await googleOneTap()
     const r2 = decodeCredential(r1.credential) as decodeCredentialResponse
     const r3 = await api.post('/api/v1/login', {email: r2.email})
-    u.login(r2.email, r2.picture, r3.data.data[0].isSu)
+    u.login(r2.email, r2.picture, r3.data.data[0].isSu, r3.data.data[0].encodedJwt)
   } catch (e) {
     console.error(e)
   }

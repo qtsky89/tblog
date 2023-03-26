@@ -1,5 +1,7 @@
 import { boot } from 'quasar/wrappers'
 import axios, { AxiosInstance } from 'axios'
+import { json } from 'body-parser'
+import { User } from 't-common'
 
 declare module '@vue/runtime-core' {
   interface ComponentCustomProperties {
@@ -14,6 +16,21 @@ declare module '@vue/runtime-core' {
 // "export default () => {}" function below (which runs individually
 // for each client)
 const api = axios.create({ baseURL: process.env.DJANGO_URL })
+
+// https://gusrb3164.github.io/web/2022/08/07/refresh-with-axios-for-client/
+api.interceptors.request.use((config) => {
+  if(!config.headers) {
+    return config
+  }
+
+  const user = localStorage.getItem('loginInfo')
+  if (user !== null) {
+    const u: User = JSON.parse(user)
+    config.headers.Authorization = `Bearer ${u.encodedJwt}`;
+  }
+
+  return config
+})
 
 export default boot(({ app, store }) => {
   // for use inside Vue files (Options API) through this.$axios and this.$api

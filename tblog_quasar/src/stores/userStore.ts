@@ -6,13 +6,16 @@ export const useUserStore = defineStore('user', {
     user: defaultUser()
   }),
   actions: {
-    login(email: string, picture: string, isSu: boolean): void {
+    login(email: string, picture: string, isSu: boolean, encodedJwt: string): void {
       this.user.email = email
       this.user.picture = picture
       this.user.isSu = isSu
+      this.user.encodedJwt = encodedJwt
+      localStorage.setItem('loginInfo', JSON.stringify(this.user))
     },
     logout(): void {
       this.user = defaultUser()
+      localStorage.removeItem('loginInfo')
     }
   },
   getters: {
@@ -26,6 +29,7 @@ function defaultUser(): User {
   return {
     email: '',
     isSu: false,
-    picture: ''
+    picture: '',
+    encodedJwt: ''
   }
 }
