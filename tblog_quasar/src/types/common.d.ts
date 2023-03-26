@@ -21,5 +21,6 @@ declare module 't-common' {
     email: string
     isSu: boolean
     picture: string
+    encodedJwt: string
   }
 }
